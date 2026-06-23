@@ -1,8 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-  MapPin, ArrowRight, Code2, Cpu,
-  Smartphone, Palette, Users, ExternalLink, Mail,
+  MapPin,
+  ArrowRight,
+  Code2,
+  Cpu,
+  Smartphone,
+  Palette,
+  Users,
+  ExternalLink,
+  Mail,
 } from "lucide-react";
 import profileImg1 from "../assets/me.jpg";
 import profileImg2 from "../assets/m1.jpg";
@@ -49,22 +56,22 @@ const galleryImages = [
 function SectionLabel({ text }) {
   return (
     <div className="mb-6">
-      <p className="text-indigo-400 text-xs tracking-widest uppercase mb-2">{text}</p>
-      <div className="h-px w-12 bg-indigo-500" />
+      <p className="text-orange-400 text-xs tracking-widest uppercase mb-2">{text}</p>
+      <div className="h-px w-12 bg-orange-500" />
     </div>
   );
 }
 
 function About() {
   return (
-    <div className="bg-[#0a0a0f] text-[#f1f5f9]">
+    <main className="bg-[#0a0a0f] text-[#f1f5f9]">
 
       {/* Hero */}
       <section className="py-24 px-6 md:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <div className="flex justify-center">
             <div className="relative w-72 h-72 md:w-80 md:h-80">
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 blur-2xl opacity-30" />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-600 blur-2xl opacity-30" />
               <img
                 src={profileImg1}
                 alt="Gayangi Devindi"
@@ -75,7 +82,7 @@ function About() {
           <div>
             <SectionLabel text="About Me" />
             <h1 className="text-4xl md:text-5xl font-black text-white mb-2">Gayangi Devindi</h1>
-            <p className="text-indigo-400 font-medium mb-3">Full Stack Developer &amp; IoT Engineer</p>
+            <p className="text-orange-400 font-medium mb-3">Full Stack Developer &amp; IoT Engineer</p>
             <div className="flex items-center gap-2 text-slate-400 text-sm mb-6">
               <MapPin size={14} />
               <span>University of Moratuwa, Sri Lanka</span>
@@ -86,10 +93,10 @@ function About() {
               projects that bridge hardware and software to solve real-world problems.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link to="/aboutind" className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold px-6 py-3 rounded-xl transition-all">
+              <Link to="/aboutind" className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold px-6 py-3 rounded-xl transition-all">
                 Full Profile <ArrowRight size={16} />
               </Link>
-              <Link to="/contact" className="inline-flex items-center gap-2 border border-[#2a2a3a] hover:border-indigo-500 text-slate-300 hover:text-white font-semibold px-6 py-3 rounded-xl transition-all">
+              <Link to="/contact" className="inline-flex items-center gap-2 border border-[#2a2a3a] hover:border-orange-500 text-slate-300 hover:text-white font-semibold px-6 py-3 rounded-xl transition-all">
                 <Mail size={16} /> Contact
               </Link>
             </div>
@@ -104,8 +111,8 @@ function About() {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">What I Do</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((s) => (
-              <div key={s.title} className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 hover:border-indigo-500/50 hover:-translate-y-1 transition-all duration-300">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white mb-4">
+              <div key={s.title} className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 hover:border-orange-500/50 hover:-translate-y-1 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white mb-4">
                   {s.icon}
                 </div>
                 <h3 className="text-white font-semibold mb-2">{s.title}</h3>
@@ -143,8 +150,8 @@ function About() {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Volunteering</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {volunteerItems.map((v, i) => (
-              <div key={i} className="flex gap-4 bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 hover:border-indigo-500/50 transition-all">
-                <div className="mt-1 w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+              <div key={i} className="flex gap-4 bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 hover:border-orange-500/50 transition-all">
+                <div className="mt-1 w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center flex-shrink-0">
                   <Users size={16} className="text-white" />
                 </div>
                 <div>
@@ -163,18 +170,18 @@ function About() {
           <SectionLabel text="Work" />
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-white">Featured Projects</h2>
-            <Link to="/projects" className="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 font-medium text-sm transition-colors">
+            <Link to="/projects" className="inline-flex items-center gap-2 text-orange-400 hover:text-orange-300 font-medium text-sm transition-colors">
               See All Projects <ArrowRight size={16} />
             </Link>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {featuredProjects.map((p) => (
-              <div key={p.title} className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 hover:border-indigo-500/50 hover:-translate-y-1 transition-all duration-300">
+              <div key={p.title} className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 hover:border-orange-500/50 hover:-translate-y-1 transition-all duration-300">
                 <h3 className="text-white font-semibold text-lg mb-2">{p.title}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed mb-4">{p.desc}</p>
                 <div className="flex flex-wrap gap-2">
                   {p.stack.map((tag) => (
-                    <span key={tag} className="text-xs px-3 py-1 rounded-full bg-[#0a0a0f] border border-[#2a2a3a] text-indigo-400">
+                    <span key={tag} className="text-xs px-3 py-1 rounded-full bg-[#0a0a0f] border border-[#2a2a3a] text-orange-400">
                       {tag}
                     </span>
                   ))}
@@ -192,7 +199,7 @@ function About() {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Tech Stack</h2>
           <div className="flex flex-wrap gap-3">
             {skills.map((skill) => (
-              <span key={skill} className="bg-[#16161f] border border-[#2a2a3a] text-slate-300 hover:text-white hover:border-indigo-500/50 transition-all rounded-full px-5 py-2 text-sm font-medium">
+              <span key={skill} className="bg-[#16161f] border border-[#2a2a3a] text-slate-300 hover:text-white hover:border-orange-500/50 transition-all rounded-full px-5 py-2 text-sm font-medium">
                 {skill}
               </span>
             ))}
@@ -204,17 +211,17 @@ function About() {
       <section className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
         <div className="max-w-6xl mx-auto">
           <div className="relative bg-[#16161f] border border-[#2a2a3a] rounded-3xl p-12 text-center overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/10 to-purple-600/10 pointer-events-none" />
-            <p className="text-indigo-400 text-xs tracking-widest uppercase mb-4">Get In Touch</p>
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-600/10 to-amber-600/10 pointer-events-none" />
+            <p className="text-orange-400 text-xs tracking-widest uppercase mb-4">Get In Touch</p>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Let's Connect</h2>
             <p className="text-slate-400 mb-8 max-w-md mx-auto">
               Interested in working together or just want to say hello? My inbox is always open.
             </p>
             <div className="flex justify-center gap-4 flex-wrap">
-              <Link to="/contact" className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold px-8 py-3 rounded-xl transition-all">
+              <Link to="/contact" className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold px-8 py-3 rounded-xl transition-all">
                 <Mail size={16} /> Contact Me
               </Link>
-              <a href="https://github.com/gayangidevindi" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border border-[#2a2a3a] hover:border-indigo-500 text-slate-300 hover:text-white font-semibold px-8 py-3 rounded-xl transition-all">
+              <a href="https://github.com/gayangidevindi" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border border-[#2a2a3a] hover:border-orange-500 text-slate-300 hover:text-white font-semibold px-8 py-3 rounded-xl transition-all">
                 <ExternalLink size={16} /> GitHub
               </a>
             </div>
@@ -222,7 +229,7 @@ function About() {
         </div>
       </section>
 
-    </div>
+    </main>
   );
 }
 
