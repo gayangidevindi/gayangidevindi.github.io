@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import About from './About';
+import About from '../components/About';
 
 export default function Home() {
   return (

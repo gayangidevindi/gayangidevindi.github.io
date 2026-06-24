@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Zap, Coffee, Smartphone, Layers, LayoutDashboard, GraduationCap, Droplets, Globe, ShoppingCart, ArrowRight } from 'lucide-react';
-
+import {
+  Zap, Coffee, Smartphone, Layers, LayoutDashboard, Globe,
+  ShoppingCart, ArrowRight, PawPrint, Pill, Crown,
+} from 'lucide-react';
+import { FaGithub } from 'react-icons/fa';
 
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState('All');
@@ -17,7 +20,7 @@ export default function Projects() {
     },
     {
       id: 2,
-      title: 'Coffee Shop Website',
+      title: 'Caffeetto — Coffee Shop Website',
       category: 'Web',
       icon: Coffee,
       stack: ['PHP', 'HTML', 'CSS', 'JavaScript'],
@@ -33,7 +36,7 @@ export default function Projects() {
     },
     {
       id: 4,
-      title: 'App UI Design',
+      title: 'App UI/UX Design',
       category: 'Design',
       icon: Layers,
       stack: ['Figma', 'Prototyping', 'User Research'],
@@ -49,19 +52,19 @@ export default function Projects() {
     },
     {
       id: 6,
-      title: 'Student Management System',
+      title: 'Pet Shop — E-Commerce Website',
       category: 'Web',
-      icon: GraduationCap,
-      stack: ['PHP', 'MySQL', 'Bootstrap', 'JavaScript'],
-      description: 'A full-featured academic management platform for tracking student records, attendance, and grades with role-based access control.',
+      icon: ShoppingCart,
+      stack: ['HTML', 'CSS', 'JavaScript'],
+      description: 'A fully responsive e-commerce platform for a pet shop, featuring product browsing, cart interaction, and a mobile-first shopping experience.',
     },
     {
       id: 7,
-      title: 'Soil Moisture Monitor',
-      category: 'Hardware',
-      icon: Droplets,
-      stack: ['Arduino', 'Capacitive Sensor', 'OLED Display'],
-      description: 'An embedded system that monitors soil moisture levels and triggers an automated irrigation relay when moisture drops below threshold.',
+      title: 'DigiX — Pet Project',
+      category: 'Web',
+      icon: PawPrint,
+      stack: ['JavaScript', 'HTML', 'CSS'],
+      description: 'A JavaScript-driven pet project exploring dynamic UI interactions and clean component structuring, deployed live for public access.',
     },
     {
       id: 8,
@@ -73,17 +76,18 @@ export default function Projects() {
     },
     {
       id: 9,
-      title: 'E-Commerce Product Page',
-      category: 'Web',
-      icon: ShoppingCart,
-      stack: ['HTML', 'CSS', 'JavaScript'],
-      description: 'A fully responsive e-commerce product landing page with cart interaction, image gallery, and mobile-first layout.',
+      title: 'Smart Pharmacy Management System',
+      category: 'Software',
+      icon: Pill,
+      stack: ['React', 'Nest.js', 'Firebase'],
+      description: 'A modern pharmacy management system built with React and Nest.js, utilizing Firebase for backend services.',
+      role: 'Team Lead',
     },
   ];
 
-  const categories = ['All', 'Web', 'Hardware', 'Mobile', 'Design'];
-  const filteredProjects = activeFilter === 'All' 
-    ? projectsData 
+  const categories = ['All', 'Web', 'Hardware', 'Mobile', 'Design', 'Software'];
+  const filteredProjects = activeFilter === 'All'
+    ? projectsData
     : projectsData.filter(p => p.category === activeFilter);
 
   return (
@@ -93,7 +97,17 @@ export default function Projects() {
           <p className="text-orange-400 text-xs tracking-widest uppercase mb-2">Portfolio</p>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Projects & Works</h1>
           <div className="w-12 h-px bg-orange-500 mx-auto mb-6" />
-          <p className="text-slate-400 max-w-2xl mx-auto">A collection of my recent work spanning web development, IoT systems, mobile applications, and design.</p>
+          <p className="text-slate-400 max-w-2xl mx-auto mb-8">A collection of my recent work spanning web development, IoT systems, mobile applications, and design.</p>
+
+          <a
+            href="https://github.com/gayangidevindi"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#16161f] border border-[#2a2a3a] hover:border-orange-500/60 text-slate-300 hover:text-white font-semibold rounded-xl transition-all duration-300"
+          >
+            <FaGithub size={18} />
+            View All Repositories on GitHub
+          </a>
         </div>
 
         <div className="flex flex-wrap justify-center gap-3 mb-12">
@@ -119,8 +133,14 @@ export default function Projects() {
               <Link
                 key={project.id}
                 to={`/project/${project.id}`}
-                className="group bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300"
+                className="group relative bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300"
               >
+                {project.role && (
+                  <div className="absolute top-4 right-4 inline-flex items-center gap-1 px-2.5 py-1 bg-orange-500/10 border border-orange-500/30 text-orange-400 rounded-full text-xs font-semibold">
+                    <Crown size={12} />
+                    {project.role}
+                  </div>
+                )}
                 <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <Icon className="text-white" size={28} />
                 </div>

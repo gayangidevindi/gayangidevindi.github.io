@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Mail, ExternalLink, MessageSquare } from 'lucide-react';
 
 const navLinks = [
   { path: '/', label: 'Home' },
@@ -11,6 +11,7 @@ const navLinks = [
 
 function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hireModalOpen, setHireModalOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
@@ -90,12 +91,12 @@ function Header() {
               >
                 GitHub <ArrowUpRight size={13} />
               </a>
-              <Link
-                to="/contact"
-                className="flex items-center gap-1.5 text-xs font-semibold text-white bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 px-4 py-2 rounded-lg transition-all duration-200 shadow-lg shadow-orange-500/20"
+              <button
+                onClick={() => setHireModalOpen(true)}
+                className="flex items-center gap-1.5 text-xs font-semibold text-white bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-500 hover:to-orange-600 px-4 py-2 rounded-lg transition-all duration-200 shadow-lg shadow-orange-500/20"
               >
                 Hire Me
-              </Link>
+              </button>
             </div>
 
             {/* ── Mobile Menu Button ── */}
@@ -190,12 +191,12 @@ function Header() {
 
           {/* Drawer footer */}
           <div className="absolute bottom-0 left-0 right-0 px-4 py-6 border-t border-[#2a2a3a]">
-            <Link
-              to="/contact"
-              className="flex items-center justify-center gap-2 w-full text-sm font-semibold text-white bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 py-3 rounded-xl transition-all"
+            <button
+              onClick={() => setHireModalOpen(true)}
+              className="flex items-center justify-center gap-2 w-full text-sm font-semibold text-white bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-500 hover:to-orange-600 py-3 rounded-xl transition-all shadow-lg shadow-orange-500/20"
             >
               Hire Me <ArrowUpRight size={15} />
-            </Link>
+            </button>
             <a
               href="https://github.com/gayangidevindi"
               target="_blank"
@@ -207,6 +208,85 @@ function Header() {
           </div>
         </div>
       </div>
+      {hireModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+          <div
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={() => setHireModalOpen(false)}
+          />
+          <div className="relative bg-[#111118] border border-[#2a2a3a] rounded-3xl p-8 md:p-10 w-full max-w-md shadow-2xl shadow-black/50">
+            <button
+              onClick={() => setHireModalOpen(false)}
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg border border-[#2a2a3a] text-slate-400 hover:text-white hover:border-orange-500/60 transition-all"
+            >
+              <X size={16} />
+            </button>
+            <div className="mb-6">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white font-bold text-lg mb-4">
+                GD
+              </div>
+              <h2 className="text-2xl font-bold text-white mb-1">Let's Work Together</h2>
+              <p className="text-slate-400 text-sm">
+                I am currently open to freelance projects, internships, and full-time opportunities.
+              </p>
+            </div>
+            <div className="h-px bg-[#2a2a3a] mb-6" />
+            <div className="flex flex-col gap-3 mb-6">
+              <a
+                href="mailto:gyangidevindi@gmail.com"
+                onClick={() => setHireModalOpen(false)}
+                className="flex items-center gap-4 bg-[#16161f] border border-[#2a2a3a] hover:border-orange-500/50 rounded-xl p-4 transition-all group"
+              >
+                <div className="w-10 h-10 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400 flex-shrink-0">
+                  <Mail size={18} />
+                </div>
+                <div>
+                  <p className="text-white text-sm font-medium group-hover:text-orange-400 transition-colors">Send an Email</p>
+                  <p className="text-slate-500 text-xs mt-0.5">gyangidevindi@gmail.com</p>
+                </div>
+                <ArrowUpRight size={16} className="text-slate-600 group-hover:text-orange-400 transition-colors ml-auto" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/gayangi-devindi-0272a8290/"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setHireModalOpen(false)}
+                className="flex items-center gap-4 bg-[#16161f] border border-[#2a2a3a] hover:border-orange-500/50 rounded-xl p-4 transition-all group"
+              >
+                <div className="w-10 h-10 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400 flex-shrink-0">
+                  <ExternalLink size={18} />
+                </div>
+                <div>
+                  <p className="text-white text-sm font-medium group-hover:text-orange-400 transition-colors">Connect on LinkedIn</p>
+                  <p className="text-slate-500 text-xs mt-0.5">linkedin.com/in/gayangi-devindi</p>
+                </div>
+                <ArrowUpRight size={16} className="text-slate-600 group-hover:text-orange-400 transition-colors ml-auto" />
+              </a>
+              <Link
+                to="/contact"
+                onClick={() => setHireModalOpen(false)}
+                className="flex items-center gap-4 bg-[#16161f] border border-[#2a2a3a] hover:border-orange-500/50 rounded-xl p-4 transition-all group"
+              >
+                <div className="w-10 h-10 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400 flex-shrink-0">
+                  <MessageSquare size={18} />
+                </div>
+                <div>
+                  <p className="text-white text-sm font-medium group-hover:text-orange-400 transition-colors">Use Contact Form</p>
+                  <p className="text-slate-500 text-xs mt-0.5">Fill out the full project details form</p>
+                </div>
+                <ArrowUpRight size={16} className="text-slate-600 group-hover:text-orange-400 transition-colors ml-auto" />
+              </Link>
+            </div>
+            <div className="flex items-center gap-2 bg-[#16161f] border border-[#2a2a3a] rounded-xl px-4 py-3">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
+              </span>
+              <p className="text-slate-400 text-xs">Available for new opportunities — response within 24 hours</p>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

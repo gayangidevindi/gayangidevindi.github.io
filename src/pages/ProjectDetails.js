@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, Zap, Coffee, Smartphone, Layers, LayoutDashboard, GraduationCap, Droplets, Globe, ShoppingCart } from 'lucide-react';
+import {
+  ArrowLeft, Zap, Coffee, Smartphone, Layers, LayoutDashboard, Globe,
+  ShoppingCart, PawPrint, Pill, Crown,
+} from 'lucide-react';
+import { FaGithub } from 'react-icons/fa';
 
 const projectsData = [
   {
@@ -11,11 +15,11 @@ const projectsData = [
     stack: ['ESP32', 'DHT11', 'MQ-135', 'Arduino IDE'],
     year: '2023',
     description: 'An IoT-based composting system that monitors temperature, humidity, and gas levels in real-time to optimize the composting process.',
-    overview: 'This project demonstrates how IoT technology can be applied to environmental solutions. By combining hardware sensors with real-time monitoring, the system provides users with actionable insights to optimize their composting process and reduce waste.',
+    overview: 'This first-year hardware project demonstrates how IoT technology can be applied to environmental solutions. By combining hardware sensors with real-time monitoring, the system provides users with actionable insights to optimize their composting process and reduce waste.',
   },
   {
     id: 2,
-    title: 'Coffee Shop Website',
+    title: 'Caffeetto — Coffee Shop Website',
     category: 'Web',
     icon: Coffee,
     stack: ['PHP', 'HTML', 'CSS', 'JavaScript'],
@@ -35,7 +39,7 @@ const projectsData = [
   },
   {
     id: 4,
-    title: 'App UI Design',
+    title: 'App UI/UX Design',
     category: 'Design',
     icon: Layers,
     stack: ['Figma', 'Prototyping', 'User Research'],
@@ -55,23 +59,23 @@ const projectsData = [
   },
   {
     id: 6,
-    title: 'Student Management System',
+    title: 'Pet Shop — E-Commerce Website',
     category: 'Web',
-    icon: GraduationCap,
-    stack: ['PHP', 'MySQL', 'Bootstrap', 'JavaScript'],
-    year: '2023',
-    description: 'A full-featured academic management platform for tracking student records, attendance, and grades with role-based access control.',
-    overview: 'This comprehensive management system helps educational institutions digitalize their operations. It features role-based access control for administrators, teachers, and students, with secure databases for sensitive academic records.',
+    icon: ShoppingCart,
+    stack: ['HTML', 'CSS', 'JavaScript'],
+    year: '2024',
+    description: 'A fully responsive e-commerce platform for a pet shop, featuring product browsing, cart interaction, and a mobile-first shopping experience.',
+    overview: 'This responsive e-commerce site demonstrates modern shopping UI/UX patterns built specifically around a pet store catalog, with a mobile-first approach and an interactive shopping cart for a smooth browsing experience.',
   },
   {
     id: 7,
-    title: 'Soil Moisture Monitor',
-    category: 'Hardware',
-    icon: Droplets,
-    stack: ['Arduino', 'Capacitive Sensor', 'OLED Display'],
-    year: '2023',
-    description: 'An embedded system that monitors soil moisture levels and triggers an automated irrigation relay when moisture drops below threshold.',
-    overview: 'This IoT system demonstrates practical applications of embedded systems in agriculture. The capacitive soil moisture sensor provides accurate readings, and the automated relay system ensures plants receive optimal watering.',
+    title: 'DigiX — Pet Project',
+    category: 'Web',
+    icon: PawPrint,
+    stack: ['JavaScript', 'HTML', 'CSS'],
+    year: '2024',
+    description: 'A JavaScript-driven pet project exploring dynamic UI interactions and clean component structuring, deployed live for public access.',
+    overview: 'DigiX was built as a personal pet project to experiment with dynamic JavaScript interactions and clean, maintainable front-end structuring outside of a framework, with a focus on responsive layout and live deployment.',
   },
   {
     id: 8,
@@ -85,13 +89,14 @@ const projectsData = [
   },
   {
     id: 9,
-    title: 'E-Commerce Product Page',
-    category: 'Web',
-    icon: ShoppingCart,
-    stack: ['HTML', 'CSS', 'JavaScript'],
-    year: '2023',
-    description: 'A fully responsive e-commerce product landing page with cart interaction, image gallery, and mobile-first layout.',
-    overview: 'This responsive product page demonstrates modern e-commerce UI/UX patterns. With a mobile-first approach, interactive shopping cart, and high-quality image gallery, it provides an excellent user experience across all devices.',
+    title: 'Smart Pharmacy Management System',
+    category: 'Software',
+    icon: Pill,
+    stack: ['React', 'Nest.js', 'Firebase'],
+    year: '2025',
+    description: 'Developed a full-stack pharmacy and supply chain management platform with separate modules for customers, suppliers, pharmacists, and administrators. Built the frontend using React, Vite, Tailwind CSS, Firebase, and Zustand, while the backend was developed with NestJS and Firebase services. The system includes authentication, inventory management, order processing, prescription handling, analytics dashboards, notifications, file uploads, and AI-powered forecasting features, providing a complete digital solution for pharmacy operations and supply chain management.',
+    overview: 'As team lead on this second-year group project, I coordinated feature planning, architecture decisions, and task delegation across the team. The system streamlines pharmacy operations with modules for inventory tracking, prescription management, billing, and customer records, built with a modern full-stack architecture.',
+    role: 'Team Lead',
   },
 ];
 
@@ -132,7 +137,15 @@ export default function ProjectDetails() {
             </div>
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">{project.title}</h1>
-              <p className="text-orange-400 font-semibold">{project.category}</p>
+              <div className="flex items-center gap-3">
+                <p className="text-orange-400 font-semibold">{project.category}</p>
+                {project.role && (
+                  <span className="inline-flex items-center gap-1 px-3 py-1 bg-orange-500/10 border border-orange-500/30 text-orange-400 rounded-full text-xs font-semibold">
+                    <Crown size={12} />
+                    {project.role}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
 
@@ -172,11 +185,21 @@ export default function ProjectDetails() {
                 <p className="text-white font-semibold">{project.year}</p>
               </div>
 
+              {project.role && (
+                <div className="border-t border-[#2a2a3a] pt-6">
+                  <h3 className="text-slate-400 text-sm uppercase tracking-wider mb-2">Role</h3>
+                  <p className="text-white font-semibold flex items-center gap-2">
+                    <Crown size={16} className="text-orange-400" />
+                    {project.role}
+                  </p>
+                </div>
+              )}
+
               <div className="border-t border-[#2a2a3a] pt-6">
                 <h3 className="text-slate-400 text-sm uppercase tracking-wider mb-3">Technologies</h3>
                 <div className="flex flex-wrap gap-2">
                   {project.stack.map((tech, idx) => (
-                    <span key={idx} className="px-3 py-1 bg-orange-600/10 border border-orange-500/20 text-orange-400 rounded text-sm">{'>'}
+                    <span key={idx} className="px-3 py-1 bg-orange-600/10 border border-orange-500/20 text-orange-400 rounded text-sm">
                       {tech}
                     </span>
                   ))}
@@ -213,6 +236,18 @@ export default function ProjectDetails() {
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="flex justify-center mb-16">
+          <a
+            href="https://github.com/gayangidevindi"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#16161f] border border-[#2a2a3a] hover:border-orange-500/60 text-slate-300 hover:text-white font-semibold rounded-xl transition-all duration-300"
+          >
+            <FaGithub size={18} />
+            View Source on GitHub
+          </a>
         </div>
 
         <div className="mt-16 pt-12 border-t border-[#2a2a3a]">
