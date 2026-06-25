@@ -5,7 +5,7 @@ import {
   Smartphone, Palette, Users, Award, ExternalLink, Mail, Download,
 } from "lucide-react";
 import myCV from "../assets/my_cv.pdf";
-import profileImg1 from "../assets/me.jpg";
+import profileImg1 from "../assets/me.jpeg";
 import profileImg2 from "../assets/m1.jpg";
 import profileImg3 from "../assets/m2.jpg";
 import profileImg4 from "../assets/m3.jpg";
@@ -13,7 +13,7 @@ import profileImg5 from "../assets/m4.jpg";
 import profileImg6 from "../assets/m5.jpg";
 import profileImg7 from "../assets/m6.jpg";
 import profileImg8 from "../assets/m7.jpg";
-import profileImg9 from "../assets/m8.jpg";
+import profileImg9 from "../assets/f3.jpg";
 import certImg1 from "../assets/port.jpg";
 import certImg2 from "../assets/leo.jpg";
 
