@@ -1,89 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
   Zap, Coffee, Smartphone, Layers, LayoutDashboard, Globe,
   ShoppingCart, ArrowRight, PawPrint, Pill, Crown,
 } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
+import ProjectDetails, { projectsData } from './ProjectDetails';
 
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState('All');
-
-  const projectsData = [
-    {
-      id: 1,
-      title: 'Rapid Compost Maker',
-      category: 'Hardware',
-      icon: Zap,
-      stack: ['ESP32', 'DHT11', 'MQ-135', 'Arduino IDE'],
-      description: 'An IoT-based composting system that monitors temperature, humidity, and gas levels in real-time to optimize the composting process.',
-    },
-    {
-      id: 2,
-      title: 'Caffeetto — Coffee Shop Website',
-      category: 'Web',
-      icon: Coffee,
-      stack: ['PHP', 'HTML', 'CSS', 'JavaScript'],
-      description: 'A full-stack website for a local coffee shop featuring a dynamic menu, online ordering system, and admin panel.',
-    },
-    {
-      id: 3,
-      title: 'Flutter Mobile App',
-      category: 'Mobile',
-      icon: Smartphone,
-      stack: ['Flutter', 'Dart', 'Firebase'],
-      description: 'A cross-platform mobile application built with Flutter featuring real-time data sync, authentication, and a clean UI.',
-    },
-    {
-      id: 4,
-      title: 'App UI/UX Design',
-      category: 'Design',
-      icon: Layers,
-      stack: ['Figma', 'Prototyping', 'User Research'],
-      description: 'A complete UI/UX design system for a mobile application including wireframes, components library, and interactive prototype.',
-    },
-    {
-      id: 5,
-      title: 'Smart Home Dashboard',
-      category: 'Web',
-      icon: LayoutDashboard,
-      stack: ['React', 'Node.js', 'MQTT', 'WebSockets'],
-      description: 'A real-time web dashboard for monitoring and controlling smart home IoT devices, with live sensor data visualization.',
-    },
-    {
-      id: 6,
-      title: 'Pet Shop — E-Commerce Website',
-      category: 'Web',
-      icon: ShoppingCart,
-      stack: ['HTML', 'CSS', 'JavaScript'],
-      description: 'A fully responsive e-commerce platform for a pet shop, featuring product browsing, cart interaction, and a mobile-first shopping experience.',
-    },
-    {
-      id: 7,
-      title: 'DigiX — Pet Project',
-      category: 'Web',
-      icon: PawPrint,
-      stack: ['JavaScript', 'HTML', 'CSS'],
-      description: 'A JavaScript-driven pet project exploring dynamic UI interactions and clean component structuring, deployed live for public access.',
-    },
-    {
-      id: 8,
-      title: 'Portfolio Website',
-      category: 'Web',
-      icon: Globe,
-      stack: ['React', 'Tailwind CSS', 'GitHub Pages'],
-      description: 'This portfolio website built with React and Tailwind CSS, deployed on GitHub Pages.',
-    },
-    {
-      id: 9,
-      title: 'Smart Pharmacy Management System',
-      category: 'Software',
-      icon: Pill,
-      stack: ['React', 'Nest.js', 'Firebase'],
-      description: 'A modern pharmacy management system built with React and Nest.js, utilizing Firebase for backend services.',
-      role: 'Team Lead',
-    },
-  ];
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const categories = ['All', 'Web', 'Hardware', 'Mobile', 'Design', 'Software'];
   const filteredProjects = activeFilter === 'All'
@@ -91,7 +16,7 @@ export default function Projects() {
     : projectsData.filter(p => p.category === activeFilter);
 
   return (
-    <section className="py-20 px-6 md:px-12 lg:px-24 bg-[#0a0a0f]">
+    <section id="projects" className="py-20 px-6 md:px-12 lg:px-24 bg-[#0a0a0f]">
       <div className="max-w-6xl mx-auto">
         <div className="mb-16 text-center">
           <p className="text-orange-400 text-xs tracking-widest uppercase mb-2">Portfolio</p>
@@ -130,10 +55,18 @@ export default function Projects() {
           {filteredProjects.map(project => {
             const Icon = project.icon;
             return (
-              <Link
+              <article
                 key={project.id}
-                to={`/project/${project.id}`}
-                className="group relative bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300"
+                role="button"
+                tabIndex={0}
+                onClick={() => setSelectedProject(project)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    setSelectedProject(project);
+                  }
+                }}
+                className="group relative cursor-pointer bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300"
               >
                 {project.role && (
                   <div className="absolute top-4 right-4 inline-flex items-center gap-1 px-2.5 py-1 bg-orange-500/10 border border-orange-500/30 text-orange-400 rounded-full text-xs font-semibold">
@@ -162,11 +95,19 @@ export default function Projects() {
                   <span className="text-sm font-medium">View Details</span>
                   <ArrowRight size={16} className="ml-2" />
                 </div>
-              </Link>
+              </article>
             );
           })}
         </div>
       </div>
+
+      {selectedProject && (
+        <ProjectDetails
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+          onSelectProject={setSelectedProject}
+        />
+      )}
     </section>
   );
 }

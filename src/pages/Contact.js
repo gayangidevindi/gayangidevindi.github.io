@@ -23,7 +23,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="py-20 px-6 md:px-12 lg:px-24 bg-[#0a0a0f]">
+    <section id="contact" className="py-20 px-6 md:px-12 lg:px-24 bg-[#0a0a0f]">
       <div className="max-w-6xl mx-auto">
         <div className="mb-16 text-center">
           <p className="text-orange-400 text-xs tracking-widest uppercase mb-2">Get in Touch</p>

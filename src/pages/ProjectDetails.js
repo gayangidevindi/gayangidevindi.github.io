@@ -1,12 +1,11 @@
-import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import {
-  ArrowLeft, Zap, Coffee, Smartphone, Layers, LayoutDashboard, Globe,
-  ShoppingCart, PawPrint, Pill, Crown,
+  Zap, Coffee, Smartphone, Layers, LayoutDashboard, Globe,
+  ShoppingCart, PawPrint, Pill, Crown, X,
 } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 
-const projectsData = [
+export const projectsData = [
   {
     id: 1,
     title: 'Rapid Compost Maker',
@@ -100,187 +99,192 @@ const projectsData = [
   },
 ];
 
-export default function ProjectDetails() {
-  const { id } = useParams();
-  const project = projectsData.find(p => p.id === parseInt(id));
+export default function ProjectDetails({ project, onClose, onSelectProject }) {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
 
-  if (!project) {
-    return (
-      <section className="py-20 px-6 md:px-12 lg:px-24 bg-[#0a0a0f] min-h-screen">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl font-bold text-white mb-4">Project Not Found</h1>
-          <Link to="/projects" className="text-orange-400 hover:text-orange-300">
-            Back to Projects
-          </Link>
-        </div>
-      </section>
-    );
-  }
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  if (!project) return null;
 
   const Icon = project.icon;
 
   return (
-    <section className="py-20 px-6 md:px-12 lg:px-24 bg-[#0a0a0f]">
-      <div className="max-w-4xl mx-auto">
-        <Link
-          to="/projects"
-          className="inline-flex items-center gap-2 text-orange-400 hover:text-orange-300 mb-8 transition-colors"
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 px-4 py-6 backdrop-blur-sm" onClick={onClose}>
+      <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl border border-[#2a2a3a] bg-[#0a0a0f] p-6 md:p-8 shadow-2xl shadow-black/50" onClick={(event) => event.stopPropagation()}>
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-[#2a2a3a] bg-[#16161f] text-slate-400 transition-all hover:border-orange-500/60 hover:text-white"
+          aria-label="Close project details"
         >
-          <ArrowLeft size={20} />
-          <span>Back to Projects</span>
-        </Link>
+          <X size={18} />
+        </button>
 
-        <div className="mb-12">
-          <div className="flex items-center gap-6 mb-6">
-            <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-amber-600 rounded-2xl flex items-center justify-center">
-              <Icon className="text-white" size={40} />
-            </div>
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">{project.title}</h1>
-              <div className="flex items-center gap-3">
-                <p className="text-orange-400 font-semibold">{project.category}</p>
-                {project.role && (
-                  <span className="inline-flex items-center gap-1 px-3 py-1 bg-orange-500/10 border border-orange-500/30 text-orange-400 rounded-full text-xs font-semibold">
-                    <Crown size={12} />
-                    {project.role}
-                  </span>
-                )}
+        <div className="max-w-4xl mx-auto">
+          <div className="mb-12">
+            <div className="flex items-center gap-6 mb-6">
+              <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-amber-600 rounded-2xl flex items-center justify-center">
+                <Icon className="text-white" size={40} />
               </div>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap gap-2 mb-6">
-            {project.stack.map((tech, idx) => (
-              <span
-                key={idx}
-                className="px-4 py-2 bg-[#16161f] border border-[#2a2a3a] text-orange-400 rounded-full text-sm"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-
-          <div className="prose prose-invert max-w-none">
-            <p className="text-slate-400 leading-relaxed text-lg">{project.overview}</p>
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          <div>
-            <h2 className="text-2xl font-bold text-white mb-6">Project Information</h2>
-
-            <div className="bg-[#16161f] border border-[#2a2a3a] rounded-xl p-6 space-y-6">
               <div>
-                <h3 className="text-slate-400 text-sm uppercase tracking-wider mb-2">Category</h3>
-                <p className="text-white font-semibold">{project.category}</p>
-              </div>
-
-              <div className="border-t border-[#2a2a3a] pt-6">
-                <h3 className="text-slate-400 text-sm uppercase tracking-wider mb-2">Status</h3>
-                <p className="text-white font-semibold">Completed</p>
-              </div>
-
-              <div className="border-t border-[#2a2a3a] pt-6">
-                <h3 className="text-slate-400 text-sm uppercase tracking-wider mb-2">Year</h3>
-                <p className="text-white font-semibold">{project.year}</p>
-              </div>
-
-              {project.role && (
-                <div className="border-t border-[#2a2a3a] pt-6">
-                  <h3 className="text-slate-400 text-sm uppercase tracking-wider mb-2">Role</h3>
-                  <p className="text-white font-semibold flex items-center gap-2">
-                    <Crown size={16} className="text-orange-400" />
-                    {project.role}
-                  </p>
-                </div>
-              )}
-
-              <div className="border-t border-[#2a2a3a] pt-6">
-                <h3 className="text-slate-400 text-sm uppercase tracking-wider mb-3">Technologies</h3>
-                <div className="flex flex-wrap gap-2">
-                  {project.stack.map((tech, idx) => (
-                    <span key={idx} className="px-3 py-1 bg-orange-600/10 border border-orange-500/20 text-orange-400 rounded text-sm">
-                      {tech}
+                <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">{project.title}</h1>
+                <div className="flex items-center gap-3">
+                  <p className="text-orange-400 font-semibold">{project.category}</p>
+                  {project.role && (
+                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-orange-500/10 border border-orange-500/30 text-orange-400 rounded-full text-xs font-semibold">
+                      <Crown size={12} />
+                      {project.role}
                     </span>
-                  ))}
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-2 mb-6">
+              {project.stack.map((tech, idx) => (
+                <span key={idx} className="px-4 py-2 bg-[#16161f] border border-[#2a2a3a] text-orange-400 rounded-full text-sm">
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+            <div className="prose prose-invert max-w-none">
+              <p className="text-slate-400 leading-relaxed text-lg">{project.overview}</p>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-6">Project Information</h2>
+
+              <div className="bg-[#16161f] border border-[#2a2a3a] rounded-xl p-6 space-y-6">
+                <div>
+                  <h3 className="text-slate-400 text-sm uppercase tracking-wider mb-2">Category</h3>
+                  <p className="text-white font-semibold">{project.category}</p>
+                </div>
+
+                <div className="border-t border-[#2a2a3a] pt-6">
+                  <h3 className="text-slate-400 text-sm uppercase tracking-wider mb-2">Status</h3>
+                  <p className="text-white font-semibold">Completed</p>
+                </div>
+
+                <div className="border-t border-[#2a2a3a] pt-6">
+                  <h3 className="text-slate-400 text-sm uppercase tracking-wider mb-2">Year</h3>
+                  <p className="text-white font-semibold">{project.year}</p>
+                </div>
+
+                {project.role && (
+                  <div className="border-t border-[#2a2a3a] pt-6">
+                    <h3 className="text-slate-400 text-sm uppercase tracking-wider mb-2">Role</h3>
+                    <p className="text-white font-semibold flex items-center gap-2">
+                      <Crown size={16} className="text-orange-400" />
+                      {project.role}
+                    </p>
+                  </div>
+                )}
+
+                <div className="border-t border-[#2a2a3a] pt-6">
+                  <h3 className="text-slate-400 text-sm uppercase tracking-wider mb-3">Technologies</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {project.stack.map((tech, idx) => (
+                      <span key={idx} className="px-3 py-1 bg-orange-600/10 border border-orange-500/20 text-orange-400 rounded text-sm">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-6">Description</h2>
+              <div className="bg-[#16161f] border border-[#2a2a3a] rounded-xl p-6">
+                <p className="text-slate-400 leading-relaxed mb-6">{project.description}</p>
+
+                <div className="border-t border-[#2a2a3a] pt-6">
+                  <h3 className="font-semibold text-white mb-3">Key Features</h3>
+                  <ul className="space-y-2 text-slate-400 text-sm">
+                    <li className="flex items-start gap-2">
+                      <span className="text-orange-400 mt-1">•</span>
+                      <span>Modern and responsive design</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-orange-400 mt-1">•</span>
+                      <span>Optimized performance</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-orange-400 mt-1">•</span>
+                      <span>Best practices implementation</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-orange-400 mt-1">•</span>
+                      <span>User-focused experience</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
 
-          <div>
-            <h2 className="text-2xl font-bold text-white mb-6">Description</h2>
-            <div className="bg-[#16161f] border border-[#2a2a3a] rounded-xl p-6">
-              <p className="text-slate-400 leading-relaxed mb-6">{project.description}</p>
-
-              <div className="border-t border-[#2a2a3a] pt-6">
-                <h3 className="font-semibold text-white mb-3">Key Features</h3>
-                <ul className="space-y-2 text-slate-400 text-sm">
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-400 mt-1">•</span>
-                    <span>Modern and responsive design</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-400 mt-1">•</span>
-                    <span>Optimized performance</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-400 mt-1">•</span>
-                    <span>Best practices implementation</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-orange-400 mt-1">•</span>
-                    <span>User-focused experience</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
+          <div className="flex justify-center mb-16">
+            <a
+              href="https://github.com/gayangidevindi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[#16161f] border border-[#2a2a3a] hover:border-orange-500/60 text-slate-300 hover:text-white font-semibold rounded-xl transition-all duration-300"
+            >
+              <FaGithub size={18} />
+              View Source on GitHub
+            </a>
           </div>
-        </div>
 
-        <div className="flex justify-center mb-16">
-          <a
-            href="https://github.com/gayangidevindi"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#16161f] border border-[#2a2a3a] hover:border-orange-500/60 text-slate-300 hover:text-white font-semibold rounded-xl transition-all duration-300"
-          >
-            <FaGithub size={18} />
-            View Source on GitHub
-          </a>
-        </div>
-
-        <div className="mt-16 pt-12 border-t border-[#2a2a3a]">
-          <h2 className="text-2xl font-bold text-white mb-8">More Projects</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {projectsData
-              .filter(p => p.id !== project.id)
-              .slice(0, 2)
-              .map(relatedProject => {
-                const RelatedIcon = relatedProject.icon;
-                return (
-                  <Link
-                    key={relatedProject.id}
-                    to={`/project/${relatedProject.id}`}
-                    className="group bg-[#16161f] border border-[#2a2a3a] rounded-xl p-6 hover:border-orange-500/50 transition-all"
-                  >
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <RelatedIcon className="text-white" size={20} />
+          <div className="mt-16 pt-12 border-t border-[#2a2a3a]">
+            <h2 className="text-2xl font-bold text-white mb-8">More Projects</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {projectsData
+                .filter((p) => p.id !== project.id)
+                .slice(0, 2)
+                .map((relatedProject) => {
+                  const RelatedIcon = relatedProject.icon;
+                  return (
+                    <button
+                      key={relatedProject.id}
+                      type="button"
+                      onClick={() => onSelectProject(relatedProject)}
+                      className="group bg-[#16161f] border border-[#2a2a3a] rounded-xl p-6 text-left hover:border-orange-500/50 transition-all"
+                    >
+                      <div className="flex items-start gap-4 mb-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <RelatedIcon className="text-white" size={20} />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-white group-hover:text-orange-400 transition-colors">
+                            {relatedProject.title}
+                          </h3>
+                          <p className="text-slate-500 text-sm">{relatedProject.category}</p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="font-semibold text-white group-hover:text-orange-400 transition-colors">
-                          {relatedProject.title}
-                        </h3>
-                        <p className="text-slate-500 text-sm">{relatedProject.category}</p>
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
+                    </button>
+                  );
+                })}
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

@@ -26,7 +26,7 @@ export default function AboutInD() {
   const currentlyLearning = ['Node.js', 'TypeScript', 'System Design', 'AWS Basics'];
 
   return (
-    <section className="py-20 px-6 md:px-12 lg:px-24 bg-[#0a0a0f]">
+    <section id="about" style={{ scrollMarginTop: '96px' }} className="py-20 px-6 md:px-12 lg:px-24 bg-[#0a0a0f]">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-start">
           {/* Left Column */}

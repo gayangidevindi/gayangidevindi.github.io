@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {
   MapPin, ArrowRight, Code2, Cpu,
   Smartphone, Palette, Users, Award, ExternalLink, Mail, Download,
+  GraduationCap, TrendingUp, School, Target, Circle, Sparkles,
 } from "lucide-react";
 import myCV from "../assets/my_cv.pdf";
 import profileImg1 from "../assets/me.jpg";
@@ -17,11 +18,25 @@ import profileImg9 from "../assets/m8.jpg";
 import certImg1 from "../assets/zone.jpeg";
 import certImg2 from "../assets/coffee.png";
 
+const LinkedInIcon = ({ size = 20, className = "" }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" className={className}>
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+  </svg>
+);
+
 const skills = [
   "Java", "C/C++", "JavaScript", "PHP",
   "HTML/CSS", "React", "Flutter", "Firebase",
   "ESP32", "Python", "Figma", "Git",
 ];
+
+const alResults = [
+  { subject: "Chemistry", grade: "A" },
+  { subject: "Combined Maths", grade: "A" },
+  { subject: "Physics", grade: "B" },
+];
+
+const currentlyLearning = ["Node.js", "TypeScript", "System Design", "AWS Basics"];
 
 const services = [
   { icon: <Code2 size={22} />, title: "Web Development", desc: "Building responsive, full-stack web applications with modern frameworks." },
@@ -113,11 +128,27 @@ function About() {
               <MapPin size={14} />
               <span>University of Moratuwa, Sri Lanka</span>
             </div>
-            <p className="text-slate-400 leading-relaxed mb-8">
-              I am an undergraduate at the University of Moratuwa, Faculty of Information Technology,
-              with a strong interest in IoT, web, and mobile development. I enjoy creating innovative
-              projects that bridge hardware and software to solve real-world problems.
+            <p className="text-slate-400 leading-relaxed mb-4">
+              I am a full-stack developer and IoT engineer studying Information Technology at the
+              University of Moratuwa. I am passionate about building innovative digital solutions
+              across web development, embedded systems, and mobile application development.
             </p>
+            <p className="text-slate-400 leading-relaxed mb-6">
+              My journey in technology ranges from developing ESP32-based IoT prototypes to building
+              scalable web applications. I enjoy collaborative environments where creativity and
+              technical excellence come together to solve practical problems.
+            </p>
+            <div className="flex items-center gap-3 mb-8">
+              <a href="https://github.com/gayangidevindi" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="w-11 h-11 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all">
+                <ExternalLink size={19} />
+              </a>
+              <a href="https://www.linkedin.com/in/gayangi-devindi-0272a8290/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-11 h-11 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all">
+                <LinkedInIcon size={19} />
+              </a>
+              <a href="mailto:gyangidevindi@gmail.com" aria-label="Email" className="w-11 h-11 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all">
+                <Mail size={19} />
+              </a>
+            </div>
             <div className="flex flex-wrap gap-4">
               <Link to="/aboutind" className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold px-6 py-3 rounded-xl transition-all">
                 Full Profile <ArrowRight size={16} />
@@ -152,6 +183,82 @@ function About() {
                 <p className="text-slate-400 text-sm leading-relaxed">{s.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Education */}
+      <section className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
+        <div className="max-w-6xl mx-auto">
+          <SectionLabel text="Background" />
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Education</h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+            {[
+              { value: "1.7792", label: "Z-Score" },
+              { value: "150", label: "District Rank" },
+              { value: "9 A's", label: "O/L Results" },
+            ].map((stat) => (
+              <div key={stat.label} className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 text-center hover:border-orange-500/50 transition-colors">
+                <p className="text-3xl font-black bg-gradient-to-br from-orange-400 to-amber-500 bg-clip-text text-transparent">{stat.value}</p>
+                <p className="text-slate-500 text-sm mt-2">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="relative pl-8 space-y-8 before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-px before:bg-[#2a2a3a]">
+            <div className="relative">
+              <div className="absolute -left-8 top-1 w-4 h-4 rounded-full bg-gradient-to-br from-orange-500 to-amber-600 ring-4 ring-[#0a0a0f]" />
+              <div className="bg-[#16161f] border border-[#2a2a3a] p-6 rounded-2xl hover:border-orange-500/50 transition-colors">
+                <div className="flex items-start gap-3 mb-2">
+                  <GraduationCap className="text-orange-400 mt-1 flex-shrink-0" size={20} />
+                  <div>
+                    <h3 className="font-semibold text-white">BSc in Information Technology</h3>
+                    <p className="text-orange-400 text-sm">University of Moratuwa</p>
+                  </div>
+                </div>
+                <p className="text-slate-400 text-sm mt-2">Ongoing education with a focus on full-stack development, IoT systems, and emerging technologies.</p>
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="absolute -left-8 top-1 w-4 h-4 rounded-full bg-gradient-to-br from-orange-500 to-amber-600 ring-4 ring-[#0a0a0f]" />
+              <div className="bg-[#16161f] border border-[#2a2a3a] p-6 rounded-2xl hover:border-orange-500/50 transition-colors">
+                <div className="flex items-start gap-3 mb-4">
+                  <School className="text-orange-400 mt-1 flex-shrink-0" size={20} />
+                  <div>
+                    <h3 className="font-semibold text-white">G.C.E. Advanced Level — Physical Science Stream</h3>
+                    <p className="text-orange-400 text-sm">Mahinda Rajapaksa College, Matara</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                  {alResults.map((result) => (
+                    <div key={result.subject} className="bg-[#0a0a0f] border border-[#2a2a3a] rounded-xl p-4 text-center">
+                      <p className={`text-2xl font-black mb-1 ${result.grade === "A" ? "text-orange-400" : "text-amber-500"}`}>{result.grade}</p>
+                      <p className="text-slate-500 text-xs">{result.subject}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-orange-500/10 border border-orange-500/30 rounded-full text-orange-400 text-xs font-semibold"><TrendingUp size={14} /> Z-Score: 1.7792</span>
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-orange-500/10 border border-orange-500/30 rounded-full text-orange-400 text-xs font-semibold"><Award size={14} /> District Rank: 150</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="absolute -left-8 top-1 w-4 h-4 rounded-full bg-gradient-to-br from-orange-500 to-amber-600 ring-4 ring-[#0a0a0f]" />
+              <div className="bg-[#16161f] border border-[#2a2a3a] p-6 rounded-2xl hover:border-orange-500/50 transition-colors">
+                <div className="flex items-start gap-3">
+                  <School className="text-orange-400 mt-1 flex-shrink-0" size={20} />
+                  <div>
+                    <h3 className="font-semibold text-white">G.C.E. Ordinary Level</h3>
+                    <p className="text-orange-400 text-sm">Mahinda Rajapaksa College, Matara</p>
+                    <span className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 bg-orange-500/10 border border-orange-500/30 rounded-full text-orange-400 text-xs font-semibold"><Award size={14} /> 9 A's</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -314,6 +421,62 @@ function About() {
           </div>
         </div>
       )}
+
+      {/* Career Objective & Availability */}
+      <section className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
+        <div className="max-w-6xl mx-auto">
+          <div className="relative bg-[#16161f] border border-[#2a2a3a] rounded-3xl p-8 md:p-12 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-600/5 to-amber-600/5 pointer-events-none" />
+            <div className="relative grid md:grid-cols-3 gap-10 items-start">
+              <div className="md:col-span-2">
+                <div className="flex items-center gap-2 mb-4">
+                  <Target size={18} className="text-orange-400" />
+                  <p className="text-orange-400 text-xs tracking-widest uppercase">Career Objective</p>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-snug">
+                  Looking to grow as a full-stack engineer who builds real, working products.
+                </h2>
+                <p className="text-slate-400 leading-relaxed">
+                  I am seeking internship and entry-level opportunities where I can apply my full-stack
+                  and IoT skills to solve practical problems, contribute to a team, and continue learning
+                  from experienced engineers. I am open to remote, hybrid, or on-site roles.
+                </p>
+                <div className="mt-8">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Sparkles size={16} className="text-orange-400" />
+                    <p className="text-slate-300 text-sm font-semibold">Currently Learning</p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {currentlyLearning.map((tech) => (
+                      <span key={tech} className="px-3 py-1.5 bg-[#0a0a0f] border border-[#2a2a3a] text-slate-300 text-xs rounded-full hover:border-orange-500/50 hover:text-orange-400 transition-colors">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-[#0a0a0f] border border-[#2a2a3a] rounded-2xl p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <Circle className="absolute inline-flex h-full w-full text-green-500 fill-green-500 animate-ping opacity-75" size={10} />
+                    <Circle className="relative inline-flex h-2.5 w-2.5 text-green-500 fill-green-500" size={10} />
+                  </span>
+                  <span className="text-green-400 text-sm font-semibold">Open to Opportunities</span>
+                </div>
+                <div className="space-y-4">
+                  <div><p className="text-slate-500 text-xs uppercase tracking-wider mb-1">Looking for</p><p className="text-white text-sm font-medium">Internships & Entry-Level Roles</p></div>
+                  <div className="border-t border-[#2a2a3a] pt-4"><p className="text-slate-500 text-xs uppercase tracking-wider mb-1">Work Mode</p><p className="text-white text-sm font-medium">Remote / Hybrid / On-site</p></div>
+                  <div className="border-t border-[#2a2a3a] pt-4"><p className="text-slate-500 text-xs uppercase tracking-wider mb-1">Focus Areas</p><p className="text-white text-sm font-medium">Full-Stack Web & IoT</p></div>
+                </div>
+                <a href="mailto:gyangidevindi@gmail.com" className="mt-6 w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold px-5 py-3 rounded-xl transition-all text-sm">
+                  <Mail size={16} /> Let's Talk
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Contact CTA */}
       <section className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
