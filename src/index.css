@@ -4,6 +4,11 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+section[id], div[id] {
+  scroll-margin-top: 6rem;
 }
 
 body {
