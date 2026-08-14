@@ -4,7 +4,7 @@ import {
   Smartphone, Palette, Users, Award, ExternalLink, Mail, Download,
   GraduationCap, TrendingUp, School, Target, Circle, Sparkles,
 } from "lucide-react";
-import myCV from "../assets/my_cv.pdf";
+import myCV from "../assets/Gayangi_Devindi_CV.pdf";
 import profileImg1 from "../assets/me.jpeg";
 import profileImg2 from "../assets/m1.jpg";
 import profileImg3 from "../assets/m2.jpg";

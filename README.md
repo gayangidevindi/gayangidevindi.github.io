@@ -312,6 +312,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
+futer updates
+npm run build
+npx gh-pages -d build
+
 **Happy Coding! 💻**
 
 ### Analyzing the Bundle Size
