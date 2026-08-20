@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 import {
   ArrowRight,
   Crown,
+  ExternalLink,
 } from 'lucide-react';
 
-import { FaGithub } from 'react-icons/fa';
+import { FaGithub, FaFigma } from 'react-icons/fa';
 
 import ProjectDetails, { projectsData } from './ProjectDetails';
 
@@ -102,10 +103,20 @@ export default function Projects() {
                     setSelectedProject(project);
                   }
                 }}
-                className="group relative cursor-pointer bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300"
+                className={`group relative cursor-pointer bg-[#16161f] border rounded-2xl p-6 hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300 ${project.id === 1 ? 'pt-24 md:pt-20 md:col-span-2 lg:col-span-3 border-orange-500/50 bg-gradient-to-br from-[#16161f] to-[#1b1718]' : 'border-[#2a2a3a]'}`}
               >
+                {project.id === 1 && (
+                  <div className="absolute top-5 right-5 flex max-w-[calc(100%-2.5rem)] flex-wrap justify-end gap-2">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-orange-500/10 border border-orange-500/30 text-orange-400 rounded-full text-xs font-semibold">
+                      <Crown size={12} /> Team Project
+                    </span>
+                    <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-orange-500/10 border border-orange-500/30 text-orange-300 rounded-full text-xs font-semibold">
+                      <Crown size={13} /> Featured Project
+                    </span>
+                  </div>
+                )}
                 {/* Role */}
-                {project.role && (
+                {project.role && project.id !== 1 && (
                   <div className="absolute top-4 right-4 inline-flex items-center gap-1 px-2.5 py-1 bg-orange-500/10 border border-orange-500/30 text-orange-400 rounded-full text-xs font-semibold">
                     <Crown size={12} />
                     {project.role}
@@ -121,7 +132,7 @@ export default function Projects() {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-lg font-semibold text-white mb-3 pr-4">
+                <h3 className={`font-semibold text-white mb-3 pr-4 ${project.id === 1 ? 'text-2xl md:text-3xl max-w-3xl' : 'text-lg'}`}>
                   {project.title}
                 </h3>
 
@@ -146,7 +157,7 @@ export default function Projects() {
                 </div>
 
                 {/* Description */}
-                <p className="text-slate-400 text-sm mb-4 leading-relaxed">
+                <p className={`text-slate-400 mb-4 leading-relaxed ${project.id === 1 ? 'text-base max-w-3xl' : 'text-sm'}`}>
                   {project.description}
                 </p>
 
@@ -159,16 +170,23 @@ export default function Projects() {
                   </div>
                 )}
 
-                {/* View Details */}
-                <div className="flex items-center text-orange-400 group-hover:text-orange-300 transition-colors">
-                  <span className="text-sm font-medium">
-                    View Details
-                  </span>
-
-                  <ArrowRight
-                    size={16}
-                    className="ml-2"
-                  />
+                <div className="flex flex-wrap items-center gap-4 text-orange-400 group-hover:text-orange-300 transition-colors">
+                  <span className="inline-flex items-center text-sm font-medium">View Details <ArrowRight size={16} className="ml-2" /></span>
+                  {project.liveDemo && (
+                    <a href={project.liveDemo} target="_blank" rel="noopener noreferrer" onClick={(event) => event.stopPropagation()} className="inline-flex items-center gap-1.5 text-xs text-slate-300 hover:text-orange-300">
+                      <ExternalLink size={14} /> Live Demo
+                    </a>
+                  )}
+                  {project.prototype && (
+                    <a href={project.prototype} target="_blank" rel="noopener noreferrer" onClick={(event) => event.stopPropagation()} className="inline-flex items-center gap-1.5 text-xs text-slate-300 hover:text-orange-300">
+                      <FaFigma size={14} /> Figma
+                    </a>
+                  )}
+                  {project.github && (
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" onClick={(event) => event.stopPropagation()} className="inline-flex items-center gap-1.5 text-xs text-slate-300 hover:text-orange-300">
+                      <FaGithub size={14} /> GitHub
+                    </a>
+                  )}
                 </div>
               </article>
             );

@@ -23,10 +23,11 @@ const LinkedInIcon = ({ size = 20, className = "" }) => (
   </svg>
 );
 
-const skills = [
-  "Java", "C/C++", "JavaScript", "PHP",
-  "HTML/CSS", "React", "Flutter", "Firebase",
-  "ESP32", "Python", "Figma", "Git",
+const skillGroups = [
+  { title: "Languages", items: ["Java", "C/C++", "JavaScript", "PHP", "Python"] },
+  { title: "Frontend & Mobile", items: ["React", "HTML/CSS", "Flutter", "Dart"] },
+  { title: "Backend & Data", items: ["Firebase", "Node.js", "REST APIs"] },
+  { title: "Cloud, Tools & Design", items: ["Git", "ESP32", "Figma", "UI/UX Prototyping"] },
 ];
 
 const alResults = [
@@ -34,6 +35,9 @@ const alResults = [
   { subject: "Combined Maths", grade: "A" },
   { subject: "Physics", grade: "B" },
 ];
+
+const MEDIUM_PROFILE_URL = "https://medium.com/@gayangidevindi";
+const mediumArticles = [];
 
 const currentlyLearning = ["Node.js", "TypeScript", "System Design", "AWS Basics"];
 
@@ -122,7 +126,7 @@ function About() {
           <div>
             <SectionLabel text="About Me" />
             <h1 className="text-4xl md:text-5xl font-black text-white mb-2">Gayangi Devindi</h1>
-            <p className="text-orange-400 font-medium mb-3">Full Stack Developer &amp; IoT Engineer</p>
+            <p className="text-orange-400 font-medium mb-3">Software Engineering Undergraduate | Full-Stack Developer</p>
             <div className="flex items-center gap-2 text-slate-400 text-sm mb-6">
               <MapPin size={14} />
               <span>University of Moratuwa, Sri Lanka</span>
@@ -168,7 +172,7 @@ function About() {
       </section>
 
       {/* What I Do */}
-      <section className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
+      <section id="experience" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
         <div className="max-w-6xl mx-auto">
           <SectionLabel text="Services" />
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">What I Do</h2>
@@ -192,8 +196,9 @@ function About() {
           <SectionLabel text="Background" />
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Education</h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
             {[
+              { value: "3.40", label: "Current CGPA" },
               { value: "1.7792", label: "Z-Score" },
               { value: "150", label: "District Rank" },
               { value: "9 A's", label: "O/L Results" },
@@ -258,12 +263,13 @@ function About() {
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
       {/* Gallery */}
-      <section className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
+      <section id="certifications" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
         <div className="max-w-6xl mx-auto">
           <SectionLabel text="Gallery" />
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Moments</h2>
@@ -382,17 +388,50 @@ function About() {
       </section>
 
       {/* Skills */}
-      <section className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
+      <section id="skills" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
         <div className="max-w-6xl mx-auto">
           <SectionLabel text="Skills" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Tech Stack</h2>
-          <div className="flex flex-wrap gap-3">
-            {skills.map((skill) => (
-              <span key={skill} className="bg-[#16161f] border border-[#2a2a3a] text-slate-300 hover:text-white hover:border-orange-500/50 transition-all rounded-full px-5 py-2 text-sm font-medium">
-                {skill}
-              </span>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Technical Skills</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {skillGroups.map((group) => (
+              <div key={group.title} className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-5 hover:border-orange-500/50 transition-colors">
+                <h3 className="text-white font-semibold mb-4">{group.title}</h3>
+                <div className="flex flex-wrap gap-2">
+                  {group.items.map((skill) => (
+                    <span key={skill} className="bg-[#0a0a0f] border border-[#2a2a3a] text-slate-300 rounded-full px-3 py-1.5 text-xs font-medium">{skill}</span>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Technical Writing */}
+      <section id="writing" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
+        <div className="max-w-6xl mx-auto">
+          <SectionLabel text="Technical Writing" />
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Notes from the Build</h2>
+          <p className="text-slate-400 max-w-2xl mb-8">I share practical notes and lessons from software development, cloud computing, AI, and projects.</p>
+          {mediumArticles.length > 0 ? (
+            <div className="grid md:grid-cols-2 gap-4">
+              {mediumArticles.map((article) => (
+                <article key={article.title} className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6">
+                  <p className="text-orange-400 text-xs uppercase tracking-widest mb-3">{article.category}</p>
+                  <h3 className="text-white font-semibold text-lg mb-2">{article.title}</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">{article.description}</p>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6">
+              <div>
+                <h3 className="text-white font-semibold mb-2">Follow my technical writing on Medium</h3>
+                <p className="text-slate-500 text-sm">Articles will appear here as they are published.</p>
+              </div>
+              <a href={MEDIUM_PROFILE_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 bg-orange-600 hover:bg-orange-500 text-white font-semibold px-5 py-3 rounded-xl transition-colors">Read on Medium <ExternalLink size={16} /></a>
+            </div>
+          )}
         </div>
       </section>
 

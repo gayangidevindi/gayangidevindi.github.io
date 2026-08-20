@@ -1,5 +1,19 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Download, Mail } from 'lucide-react';
+import { FaGithub, FaLinkedin, FaMedium } from 'react-icons/fa';
+import myCV from '../assets/Gayangi_Devindi_CV.pdf';
+
+const GITHUB_URL = 'https://github.com/gayangidevindi';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/gayangi-devindi-0272a8290/';
+const MEDIUM_PROFILE_URL = 'https://medium.com/@gayangidevindi';
+const EMAIL = 'mailto:gyangidevindi@gmail.com';
+
+const professionalStats = [
+  { value: '10+', label: 'Projects across software, web, mobile and IoT' },
+  { value: 'Full-stack', label: 'React, NestJS, Firebase and REST APIs' },
+  { value: 'AI + Cloud', label: 'Groq, Pinecone and practical cloud workflows' },
+  { value: 'Technical writing', label: 'Sharing practical software lessons' },
+];
 
 export default function Home() {
   return (
@@ -12,18 +26,26 @@ export default function Home() {
             <span className="text-slate-300 text-sm">Available for work</span>
           </div>
           <h1 className="text-6xl md:text-8xl font-black text-white mb-6 leading-tight">Gayangi Devindi</h1>
-          <h2 className="text-2xl md:text-4xl font-bold mb-8 bg-gradient-to-r from-orange-400 to-amber-500 bg-clip-text text-transparent">Developer. Innovator. Creator.</h2>
-          <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">Full-stack developer and IoT engineer passionate about building meaningful digital experiences. From embedded systems to modern web applications, I craft solutions that blend creativity with technology.</p>
+          <h2 className="text-2xl md:text-4xl font-bold mb-8 bg-gradient-to-r from-orange-400 to-amber-500 bg-clip-text text-transparent">Software Engineering Undergraduate | Full-Stack Developer</h2>
+          <p className="text-slate-400 text-lg mb-4 max-w-2xl mx-auto leading-relaxed">I build practical software across React, NestJS, Firebase, Node.js, cloud services and AI integrations.</p>
+          <p className="text-slate-500 text-sm mb-10">React <span className="text-orange-400">•</span> NestJS <span className="text-orange-400">•</span> Firebase <span className="text-orange-400">•</span> Node.js <span className="text-orange-400">•</span> Cloud <span className="text-orange-400">•</span> AI</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <a href="#projects" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-orange-600 hover:bg-orange-500 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105">View Projects<ArrowRight size={20} /></a>
-            <a href="#contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-orange-500 text-orange-400 hover:text-orange-300 hover:border-orange-400 font-semibold rounded-xl transition-all duration-300">Contact Me<ArrowRight size={20} /></a>
+            <a href={myCV} download="Gayangi_Devindi_CV.pdf" className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-orange-500 text-orange-400 hover:text-orange-300 hover:border-orange-400 font-semibold rounded-xl transition-all duration-300"><Download size={20} />Download CV</a>
           </div>
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-8">
-            <div><div className="text-3xl font-bold text-orange-400">9+</div><div className="text-slate-500 text-sm">Projects</div></div>
-            <div className="hidden sm:block w-px h-12 bg-[#2a2a3a]" />
-            <div><div className="text-3xl font-bold text-orange-400">2+</div><div className="text-slate-500 text-sm">Years Experience</div></div>
-            <div className="hidden sm:block w-px h-12 bg-[#2a2a3a]" />
-            <div><div className="text-3xl font-bold text-orange-400">IoT + Web</div><div className="text-slate-500 text-sm">Full Stack</div></div>
+          <div className="flex justify-center items-center gap-3 mb-14" aria-label="Professional social links">
+            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="w-11 h-11 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all"><FaGithub size={19} /></a>
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-11 h-11 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all"><FaLinkedin size={19} /></a>
+            <a href={MEDIUM_PROFILE_URL} target="_blank" rel="noopener noreferrer" aria-label="Medium" className="w-11 h-11 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all"><FaMedium size={19} /></a>
+            <a href={EMAIL} aria-label="Email" className="w-11 h-11 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all"><Mail size={19} /></a>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-left">
+            {professionalStats.map((stat) => (
+              <div key={stat.value} className="bg-[#16161f]/80 border border-[#2a2a3a] rounded-xl p-4">
+                <div className="text-xl font-bold text-orange-400">{stat.value}</div>
+                <div className="text-slate-500 text-xs leading-relaxed mt-1">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

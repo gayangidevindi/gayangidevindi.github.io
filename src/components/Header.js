@@ -4,7 +4,12 @@ import { Menu, X, ArrowUpRight, Mail, ExternalLink, MessageSquare } from 'lucide
 const navLinks = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'education', label: 'Education' },
   { id: 'projects', label: 'Projects' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'certifications', label: 'Achievements' },
+  { id: 'writing', label: 'Writing' },
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -19,7 +24,7 @@ function Header() {
       setScrolled(window.scrollY > 20);
 
       const sections = Array.from(document.querySelectorAll('main [id]'))
-        .filter((element) => ['home', 'about', 'projects', 'contact'].includes(element.id));
+        .filter((element) => navLinks.some((link) => link.id === element.id));
 
       const offset = 140;
       let current = 'home';
@@ -64,7 +69,7 @@ function Header() {
               </div>
             </a>
 
-            <nav className="hidden md:flex items-center gap-1">
+            <nav className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.id;
                 return (
@@ -89,7 +94,7 @@ function Header() {
               })}
             </nav>
 
-            <div className="hidden md:flex items-center gap-3">
+            <div className="hidden lg:flex items-center gap-3">
               <a
                 href="https://github.com/gayangidevindi"
                 target="_blank"
@@ -107,7 +112,7 @@ function Header() {
             </div>
 
             <button
-              className="md:hidden relative w-9 h-9 flex items-center justify-center rounded-lg border border-[#2a2a3a] text-slate-400 hover:text-white hover:border-orange-500/60 transition-all duration-200"
+              className="lg:hidden relative w-9 h-9 flex items-center justify-center rounded-lg border border-[#2a2a3a] text-slate-400 hover:text-white hover:border-orange-500/60 transition-all duration-200"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -126,7 +131,7 @@ function Header() {
 
       <div className="h-16 md:h-20" />
 
-      <div className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${mobileMenuOpen ? 'visible' : 'invisible'}`}>
+      <div className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${mobileMenuOpen ? 'visible' : 'invisible'}`}>
         <div
           className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100' : 'opacity-0'}`}
           onClick={() => setMobileMenuOpen(false)}

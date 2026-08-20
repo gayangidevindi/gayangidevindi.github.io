@@ -17,8 +17,6 @@ import {
   Database,
   BrainCircuit,
   ShieldCheck,
-  Truck,
-  BarChart3,
 } from 'lucide-react';
 
 import { FaGithub, FaFigma } from 'react-icons/fa';
@@ -670,7 +668,10 @@ export default function ProjectDetails({
               )}
             </div>
 
-            {/* Overview */}
+            {/* Project Overview */}
+            <h2 className="text-2xl font-bold text-white mb-4">
+              Project Overview
+            </h2>
             <div className="prose prose-invert max-w-none">
               <p className="text-slate-400 leading-relaxed text-lg">
                 {project.overview}
@@ -868,7 +869,7 @@ export default function ProjectDetails({
 
                   <div>
                     <h2 className="text-2xl font-bold text-white">
-                      Full Project Overview
+                      Complete Project Features
                     </h2>
 
                     <p className="text-sm text-slate-500 mt-1">
@@ -1016,7 +1017,8 @@ export default function ProjectDetails({
                   <p className="text-sm text-slate-400 leading-relaxed">
                     NestJS REST APIs, Firebase
                     Authentication and Cloud
-                    Firestore.
+                    Firestore. Modules may also
+                    access Firestore directly.
                   </p>
 
                 </div>
@@ -1062,6 +1064,41 @@ export default function ProjectDetails({
 
               </div>
 
+              <div className="mt-6 bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 md:p-8">
+                <p className="text-slate-300 text-sm leading-relaxed mb-4">The project uses both authenticated NestJS REST APIs and direct Firestore access depending on the module.</p>
+                <div className="flex flex-wrap items-center gap-2 text-sm font-semibold text-orange-300">
+                  <span className="px-3 py-2 bg-[#0a0a0f] border border-[#2a2a3a] rounded-lg">React / React Native</span>
+                  <span className="text-orange-500">-&gt;</span>
+                  <span className="px-3 py-2 bg-[#0a0a0f] border border-[#2a2a3a] rounded-lg">NestJS REST APIs</span>
+                  <span className="text-orange-500">-&gt;</span>
+                  <span className="px-3 py-2 bg-[#0a0a0f] border border-[#2a2a3a] rounded-lg">Firebase / Firestore</span>
+                  <span className="text-orange-500">-&gt;</span>
+                  <span className="px-3 py-2 bg-[#0a0a0f] border border-[#2a2a3a] rounded-lg">Groq / Pinecone / PayHere</span>
+                </div>
+              </div>
+
+            </div>
+          )}
+
+          {project.id === 1 && (
+            <div className="mb-12">
+              <h2 className="text-2xl font-bold text-white mb-6">Technical Challenges Solved</h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                {[
+                  'Maintained consistency across purchaseOrders, products, adminProducts, payments, invoices, and notifications.',
+                  'Implemented the two-stage supplier payment workflow: initial 50%, delivery unlock, final 50%, and completion.',
+                  'Synchronized supplier inventory with Admin inventory and approval workflows.',
+                  'Combined historical data, statistical rules, and Groq explanations for practical analytics.',
+                  'Secured NestJS APIs with Firebase authentication tokens and protected role workflows.',
+                  'Managed real-time Firestore workflows for notifications, pending products, and stock where applicable.',
+                  'Integrated frontend, backend, Firestore, AI APIs, payments, PDF generation, and deployment environments.',
+                ].map((challenge) => (
+                  <div key={challenge} className="flex items-start gap-3 bg-[#16161f] border border-[#2a2a3a] rounded-xl p-5">
+                    <CheckCircle2 size={17} className="text-orange-400 mt-0.5 flex-shrink-0" />
+                    <p className="text-slate-400 text-sm leading-relaxed">{challenge}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
