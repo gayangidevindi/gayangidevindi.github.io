@@ -277,7 +277,9 @@ function Header() {
             <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6" />
             <div className="flex flex-col gap-3 mb-6">
               <a
-                href="mailto:gyangidevindi@gmail.com"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=gayangidevindi@gmail.com&su=Let%27s%20work%20together"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setHireModalOpen(false)}
                 className="flex items-center gap-4 bg-white/[0.02] border border-white/10 hover:border-orange-500/40 hover:bg-white/[0.04] rounded-xl p-4 transition-all group focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400/60"
               >
@@ -286,7 +288,7 @@ function Header() {
                 </div>
                 <div>
                   <p className="text-white text-sm font-medium group-hover:text-orange-400 transition-colors">Send an Email</p>
-                  <p className="text-slate-500 text-xs mt-0.5">gyangidevindi@gmail.com</p>
+                  <p className="text-slate-500 text-xs mt-0.5">gayangidevindi@gmail.com</p>
                 </div>
                 <ArrowUpRight size={16} className="text-slate-600 group-hover:text-orange-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all ml-auto" />
               </a>

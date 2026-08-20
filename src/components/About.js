@@ -507,7 +507,12 @@ function About() {
                   <div className="border-t border-[#2a2a3a] pt-4"><p className="text-slate-500 text-xs uppercase tracking-wider mb-1">Work Mode</p><p className="text-white text-sm font-medium">Remote / Hybrid / On-site</p></div>
                   <div className="border-t border-[#2a2a3a] pt-4"><p className="text-slate-500 text-xs uppercase tracking-wider mb-1">Focus Areas</p><p className="text-white text-sm font-medium">Full-Stack Web & IoT</p></div>
                 </div>
-                <a href="mailto:gyangidevindi@gmail.com" className="mt-6 w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold px-5 py-3 rounded-xl transition-all text-sm">
+                <a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=gayangidevindi@gmail.com&su=Let%27s%20work%20together"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold px-5 py-3 rounded-xl transition-all text-sm"
+                >
                   <Mail size={16} /> Let's Talk
                 </a>
               </div>
