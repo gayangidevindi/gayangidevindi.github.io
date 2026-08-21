@@ -531,6 +531,52 @@ export const projectsData = [
       'GitHub integration',
     ],
   },
+
+    /* =======================================================
+     11. STUDY HELPER BOT
+  ======================================================= */
+
+  {
+    id: 11,
+
+    title: 'Study Helper Bot',
+
+    category: 'Web',
+
+    icon: BrainCircuit,
+
+    stack: [
+      'Next.js',
+      'React',
+      'TypeScript',
+      'Tailwind CSS',
+      'Vercel AI SDK',
+      'Groq',
+      'Zod',
+    ],
+
+    year: '2026',
+
+    status: 'Completed',
+
+    liveDemo: 'https://study-helper-chat-bot.vercel.app/',
+
+    description:
+      'An AI-powered study workspace that turns questions and notes into active learning through a streaming concept tutor, generated quizzes, and AI-graded short-answer practice.',
+
+    overview:
+      'Study Helper Bot is a Next.js application built to help learners actively engage with their study material. It offers three modes: an Ask & Explain chat tutor that streams focused explanations, a Quiz Me mode that generates five multiple-choice questions with explanations from pasted notes, and a Short Answer mode that generates an open-ended question and grades the user\'s response with a 0–100 score and feedback. All AI generation is powered by Groq models through the Vercel AI SDK, with Zod schemas validating structured quiz, question, and grading responses.',
+
+    keyFeatures: [
+      'Streaming AI tutor for focused concept explanations',
+      'Auto-generated 5-question multiple-choice quizzes from notes',
+      'AI-graded short-answer practice with 0-100 scoring and feedback',
+      'In-session progress tracking for quizzes and accuracy',
+      'Markdown-rendered tutor responses',
+      'Built with Next.js App Router, React 19, and TypeScript',
+      'Structured AI outputs validated with Zod schemas',
+    ],
+  },
 ];
 
 /* =========================================================
