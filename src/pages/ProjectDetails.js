@@ -586,7 +586,7 @@ export const projectsData = [
   {
     id: 12,
 
-    title: 'Develop — AI Image Generator',
+    title: 'Exposure - AI Image Generator',
 
     category: 'Web',
 
