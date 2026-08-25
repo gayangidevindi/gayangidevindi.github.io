@@ -62,7 +62,7 @@ export const projectsData = [
 
     status: 'Completed',
 
-    role: 'Team Project',
+    role: 'Group Project | Team Leader',
 
     liveDemo: 'https://innovatexuom.vercel.app',
 
