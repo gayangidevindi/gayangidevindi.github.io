@@ -108,7 +108,7 @@ export default function Projects() {
                 {project.id === 1 && (
                   <div className="absolute top-5 right-5 flex max-w-[calc(100%-2.5rem)] flex-wrap justify-end gap-2">
                     <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-orange-500/10 border border-orange-500/30 text-orange-400 rounded-full text-xs font-semibold">
-                      <Crown size={12} /> Team Project
+                      <Crown size={12} /> Group Project | Team Leader
                     </span>
                     <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-orange-500/10 border border-orange-500/30 text-orange-300 rounded-full text-xs font-semibold">
                       <Crown size={13} /> Featured Project
