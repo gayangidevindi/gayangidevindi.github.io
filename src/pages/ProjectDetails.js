@@ -17,6 +17,7 @@ import {
   Database,
   BrainCircuit,
   ShieldCheck,
+  ImagePlus,
 } from 'lucide-react';
 
 import { FaGithub, FaFigma } from 'react-icons/fa';
@@ -532,7 +533,7 @@ export const projectsData = [
     ],
   },
 
-    /* =======================================================
+  /* =======================================================
      11. STUDY HELPER BOT
   ======================================================= */
 
@@ -575,6 +576,55 @@ export const projectsData = [
       'Markdown-rendered tutor responses',
       'Built with Next.js App Router, React 19, and TypeScript',
       'Structured AI outputs validated with Zod schemas',
+    ],
+  },
+
+  /* =======================================================
+     12. DEVELOP — AI IMAGE GENERATOR
+  ======================================================= */
+
+  {
+    id: 12,
+
+    title: 'Develop — AI Image Generator',
+
+    category: 'Web',
+
+    icon: ImagePlus,
+
+    stack: [
+      'Next.js',
+      'React',
+      'TypeScript',
+      'Tailwind CSS',
+      'Supabase',
+      'Pollinations AI',
+      'Groq',
+      'Stripe',
+    ],
+
+    year: '2026',
+
+    status: 'Completed',
+
+    liveDemo: 'https://ai-image-generator-omega-three.vercel.app/',
+
+    description:
+      'An AI image generator built with Next.js where users describe an image, pick a style and aspect ratio, and generate it with Pollinations AI, with saved galleries, prompt enhancement, and credit-based payments.',
+
+    overview:
+      'Develop is a Next.js 16 application that turns text prompts into images using the Pollinations AI flux model, with a choice of six visual styles and three output sizes. Signed-in users authenticate through Supabase and get a personal gallery where generated images are saved for later regeneration or deletion. A Groq-powered "Enhance" action can expand a rough prompt into a richer one before generation. Each user starts with a credit balance that is spent per generation, and additional credits can be purchased in one-time packs through Stripe Checkout, with balances updated server-side by a verified Stripe webhook.',
+
+    keyFeatures: [
+      'Six selectable styles: Realistic, Anime, Oil Painting, Cartoon, Cyberpunk, and Watercolor',
+      'Square, portrait, and landscape output sizes',
+      'AI prompt enhancement powered by Groq',
+      'Personal saved gallery with regeneration and delete/clear actions',
+      'Email/password authentication via Supabase',
+      'Credit balance and profile usage statistics',
+      'One-time credit packs purchased through Stripe Checkout',
+      'Server-verified Stripe webhook for reliable credit top-ups',
+      'Light and dark theme support',
     ],
   },
 ];
