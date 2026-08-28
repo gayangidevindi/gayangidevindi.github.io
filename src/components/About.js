@@ -3,6 +3,7 @@ import {
   MapPin, ArrowRight, Code2, Cpu,
   Smartphone, Palette, Users, Award, ExternalLink, Mail, Download,
   GraduationCap, TrendingUp, School, Target, Circle, Sparkles,
+  Briefcase, X,
 } from "lucide-react";
 import myCV from "../assets/Gayangi_Devindi_CV.pdf";
 import profileImg1 from "../assets/me.jpeg";
@@ -95,6 +96,35 @@ const galleryImages = [
   profileImg4, profileImg5, profileImg7, profileImg9,
 ];
 
+// Data used by the "Full Profile" modal card
+const fullProfileHighlights = [
+  { label: "Current CGPA", value: "3.40" },
+  { label: "Z-Score", value: "1.7792" },
+  { label: "District Rank", value: "150" },
+  { label: "O/L Results", value: "9 A's" },
+];
+
+const fullProfileEducation = [
+  {
+    degree: "BSc in Information Technology",
+    institute: "University of Moratuwa",
+    period: "Ongoing",
+    detail: "Focus on full-stack development, IoT systems, and emerging technologies.",
+  },
+  {
+    degree: "G.C.E. Advanced Level — Physical Science Stream",
+    institute: "Mahinda Rajapaksa College, Matara",
+    period: "Completed",
+    detail: "Chemistry (A), Combined Maths (A), Physics (B).",
+  },
+  {
+    degree: "G.C.E. Ordinary Level",
+    institute: "Mahinda Rajapaksa College, Matara",
+    period: "Completed",
+    detail: "9 A's.",
+  },
+];
+
 function SectionLabel({ text }) {
   return (
     <div className="mb-6">
@@ -106,6 +136,16 @@ function SectionLabel({ text }) {
 
 function About() {
   const [activeAchievement, setActiveAchievement] = React.useState(null);
+  const [showFullProfile, setShowFullProfile] = React.useState(false);
+
+  // Lock background scroll while the Full Profile modal is open
+  React.useEffect(() => {
+    if (showFullProfile) {
+      const original = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => { document.body.style.overflow = original; };
+    }
+  }, [showFullProfile]);
 
   return (
     <div id="about" className="bg-[#0a0a0f] text-[#f1f5f9]">
@@ -153,9 +193,13 @@ function About() {
               </a>
             </div>
             <div className="flex flex-wrap gap-4">
-              <a href="#education" className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold px-6 py-3 rounded-xl transition-all">
+              <button
+                type="button"
+                onClick={() => setShowFullProfile(true)}
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold px-6 py-3 rounded-xl transition-all"
+              >
                 Full Profile <ArrowRight size={16} />
-              </a>
+              </button>
               <a href="#contact" className="inline-flex items-center gap-2 border border-[#2a2a3a] hover:border-orange-500 text-slate-300 hover:text-white font-semibold px-6 py-3 rounded-xl transition-all">
                 <Mail size={16} /> Contact
               </a>
@@ -455,6 +499,153 @@ function About() {
               <h3 className="text-xl font-semibold text-white mb-3">{activeAchievement.title}</h3>
               <p className="text-slate-400 mb-1">{activeAchievement.organizer}</p>
               <p className="text-slate-500 text-sm">{activeAchievement.date}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Full Profile Modal Card */}
+      {showFullProfile && (
+        <div
+          className="fixed inset-0 z-50 bg-[#0a0a0f]/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-8"
+          onClick={() => setShowFullProfile(false)}
+        >
+          <div
+            className="relative max-w-3xl w-full max-h-[88vh] overflow-y-auto bg-[#16161f] border border-[#2a2a3a] rounded-3xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setShowFullProfile(false)}
+              aria-label="Close full profile"
+              className="absolute top-5 right-5 z-20 inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#0a0a0f] border border-[#2a2a3a] text-slate-300 hover:text-white hover:border-orange-500/50 transition-all"
+            >
+              <X size={18} />
+            </button>
+
+            {/* Header */}
+            <div className="relative p-8 md:p-10 border-b border-[#2a2a3a] bg-gradient-to-br from-orange-600/10 to-amber-600/10">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+                <img
+                  src={profileImg1}
+                  alt="Gayangi Devindi"
+                  className="w-20 h-20 rounded-2xl object-cover object-top border border-[#2a2a3a]"
+                />
+                <div>
+                  <p className="text-orange-400 text-xs tracking-widest uppercase mb-1">Full Profile</p>
+                  <h2 className="text-2xl md:text-3xl font-bold text-white">Gayangi Devindi</h2>
+                  <p className="text-slate-400 text-sm mt-1">Software Engineering Undergraduate · Full-Stack & IoT Developer</p>
+                  <div className="flex items-center gap-2 text-slate-500 text-xs mt-2">
+                    <MapPin size={12} />
+                    <span>University of Moratuwa, Sri Lanka</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 md:p-10 space-y-10">
+
+              {/* Professional Summary */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <Briefcase size={16} className="text-orange-400" />
+                  <h3 className="text-white font-semibold text-sm uppercase tracking-wider">Professional Summary</h3>
+                </div>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Full-stack developer and IoT engineer pursuing a BSc in Information Technology at the
+                  University of Moratuwa, with hands-on experience across web development, embedded
+                  systems, and mobile applications. Comfortable working end-to-end — from designing
+                  interfaces in Figma to building REST APIs and deploying ESP32-based hardware
+                  integrations. Active contributor within the IEEE Student Branch and Rotaract Club,
+                  balancing technical delivery with team leadership and community involvement.
+                </p>
+              </div>
+
+              {/* Key Stats */}
+              <div>
+                <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">Academic Highlights</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {fullProfileHighlights.map((stat) => (
+                    <div key={stat.label} className="bg-[#0a0a0f] border border-[#2a2a3a] rounded-xl p-4 text-center">
+                      <p className="text-xl font-black bg-gradient-to-br from-orange-400 to-amber-500 bg-clip-text text-transparent">{stat.value}</p>
+                      <p className="text-slate-500 text-xs mt-1">{stat.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Education */}
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <GraduationCap size={16} className="text-orange-400" />
+                  <h3 className="text-white font-semibold text-sm uppercase tracking-wider">Education</h3>
+                </div>
+                <div className="space-y-3">
+                  {fullProfileEducation.map((edu) => (
+                    <div key={edu.degree} className="bg-[#0a0a0f] border border-[#2a2a3a] rounded-xl p-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                        <p className="text-white font-medium text-sm">{edu.degree}</p>
+                        <span className="text-orange-400 text-xs font-medium">{edu.period}</span>
+                      </div>
+                      <p className="text-slate-500 text-xs mt-1">{edu.institute}</p>
+                      <p className="text-slate-400 text-sm mt-2">{edu.detail}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Core Skills */}
+              <div>
+                <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">Core Skills</h3>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {skillGroups.map((group) => (
+                    <div key={group.title} className="bg-[#0a0a0f] border border-[#2a2a3a] rounded-xl p-4">
+                      <p className="text-slate-300 text-xs font-semibold uppercase tracking-wide mb-2">{group.title}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {group.items.map((skill) => (
+                          <span key={skill} className="text-xs px-2.5 py-1 rounded-full bg-[#16161f] border border-[#2a2a3a] text-orange-400">{skill}</span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Career Objective */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <Target size={16} className="text-orange-400" />
+                  <h3 className="text-white font-semibold text-sm uppercase tracking-wider">Career Objective</h3>
+                </div>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Seeking internship and entry-level opportunities to apply full-stack and IoT skills
+                  to real-world problems, contribute within a team, and grow under experienced
+                  engineers. Open to remote, hybrid, or on-site roles.
+                </p>
+              </div>
+
+              {/* Contact & CTA */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-2 border-t border-[#2a2a3a]">
+                <div className="flex items-center gap-3">
+                  <a href="https://github.com/gayangidevindi" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="w-10 h-10 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all">
+                    <ExternalLink size={17} />
+                  </a>
+                  <a href="https://www.linkedin.com/in/gayangi-devindi-0272a8290/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-10 h-10 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all">
+                    <LinkedInIcon size={17} />
+                  </a>
+                  <a href="mailto:gyangidevindi@gmail.com" aria-label="Email" className="w-10 h-10 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all">
+                    <Mail size={17} />
+                  </a>
+                </div>
+                <a
+                  href={myCV}
+                  download="Gayangi_Devindi_CV.pdf"
+                  className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold px-6 py-3 rounded-xl transition-all text-sm"
+                >
+                  <Download size={16} /> Download Full CV
+                </a>
+              </div>
+
             </div>
           </div>
         </div>
