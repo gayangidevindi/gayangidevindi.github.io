@@ -1,9 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.598e222e.css",
-    "main.js": "/static/js/main.046b2815.js",
+    "main.css": "/static/css/main.bc2e27c7.css",
+    "main.js": "/static/js/main.d842645e.js",
     "static/js/453.feaefce1.chunk.js": "/static/js/453.feaefce1.chunk.js",
-    "static/media/Gayangi_Devindi_CV.pdf": "/static/media/Gayangi_Devindi_CV.3a1458d05824aad9a2a8.pdf",
     "static/media/m5.jpg": "/static/media/m5.31036e6207c48009b0a6.jpg",
     "static/media/port.jpg": "/static/media/port.f20ad63cd9edf1007c64.jpg",
     "static/media/m3.jpg": "/static/media/m3.beef221d0ecd6e292599.jpg",
@@ -16,12 +15,12 @@
     "static/media/m6.jpg": "/static/media/m6.3c999629c3fc22f933b2.jpg",
     "static/media/f3.jpg": "/static/media/f3.2f353f22923dd469fa4d.jpg",
     "index.html": "/index.html",
-    "main.598e222e.css.map": "/static/css/main.598e222e.css.map",
-    "main.046b2815.js.map": "/static/js/main.046b2815.js.map",
+    "main.bc2e27c7.css.map": "/static/css/main.bc2e27c7.css.map",
+    "main.d842645e.js.map": "/static/js/main.d842645e.js.map",
     "453.feaefce1.chunk.js.map": "/static/js/453.feaefce1.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.598e222e.css",
-    "static/js/main.046b2815.js"
+    "static/css/main.bc2e27c7.css",
+    "static/js/main.d842645e.js"
   ]
 }
