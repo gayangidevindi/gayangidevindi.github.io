@@ -5,7 +5,7 @@ import {
   GraduationCap, TrendingUp, School, Target, Circle, Sparkles,
   Briefcase, X,
 } from "lucide-react";
-import myCV from "../assets/Gayangi_Devindi_CV.pdf";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import profileImg1 from "../assets/me.jpeg";
 import profileImg2 from "../assets/m1.jpg";
 import profileImg3 from "../assets/m2.jpg";
@@ -138,6 +138,13 @@ function About() {
   const [activeAchievement, setActiveAchievement] = React.useState(null);
   const [showFullProfile, setShowFullProfile] = React.useState(false);
 
+  // Scroll animation refs
+  const skillsRef = useScrollAnimation({ threshold: '0.2' });
+  const servicesRef = useScrollAnimation({ threshold: '0.2' });
+  const educationRef = useScrollAnimation({ threshold: '0.2' });
+  const volunteersRef = useScrollAnimation({ threshold: '0.2' });
+  const achievementsRef = useScrollAnimation({ threshold: '0.2' });
+
   // Lock background scroll while the Full Profile modal is open
   React.useEffect(() => {
     if (showFullProfile) {
@@ -204,7 +211,7 @@ function About() {
                 <Mail size={16} /> Contact
               </a>
               <a
-                href={myCV}
+                href="/Gayangi_Devindi_CV.pdf"
                 download="Gayangi_Devindi_CV.pdf"
                 className="inline-flex items-center gap-2 border border-orange-500/50 hover:border-orange-500 hover:bg-orange-500/10 text-orange-400 hover:text-orange-300 font-semibold px-6 py-3 rounded-xl transition-all duration-200"
               >
@@ -216,7 +223,7 @@ function About() {
       </section>
 
       {/* What I Do */}
-      <section id="experience" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
+      <section ref={servicesRef} id="experience" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
         <div className="max-w-6xl mx-auto">
           <SectionLabel text="Services" />
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">What I Do</h2>
@@ -235,7 +242,7 @@ function About() {
       </section>
 
       {/* Education */}
-      <section id="education" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a] scroll-mt-24">
+      <section ref={educationRef} id="education" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a] scroll-mt-24">
         <div className="max-w-6xl mx-auto">
           <SectionLabel text="Background" />
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Education</h2>
@@ -313,7 +320,7 @@ function About() {
       </section>
 
       {/* Gallery */}
-      <section id="certifications" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
+      <section ref={skillsRef} id="certifications" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
         <div className="max-w-6xl mx-auto">
           <SectionLabel text="Gallery" />
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Moments</h2>
@@ -333,7 +340,7 @@ function About() {
       </section>
 
       {/* Volunteering */}
-      <section className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
+      <section ref={volunteersRef} className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
         <div className="max-w-6xl mx-auto">
           <SectionLabel text="Community" />
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Volunteering</h2>
@@ -354,7 +361,7 @@ function About() {
       </section>
 
       {/* Memberships & Achievements */}
-      <section className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
+      <section ref={achievementsRef} className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a];">
         <div className="max-w-6xl mx-auto">
           <SectionLabel text="Achievements" />
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Memberships & Achievements</h2>
@@ -432,7 +439,7 @@ function About() {
       </section>
 
       {/* Skills */}
-      <section id="skills" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
+      <section ref={skillsRef} id="skills" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
         <div className="max-w-6xl mx-auto">
           <SectionLabel text="Skills" />
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Technical Skills</h2>
@@ -638,7 +645,7 @@ function About() {
                   </a>
                 </div>
                 <a
-                  href={myCV}
+                  href="/Gayangi_Devindi_CV.pdf"
                   download="Gayangi_Devindi_CV.pdf"
                   className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold px-6 py-3 rounded-xl transition-all text-sm"
                 >

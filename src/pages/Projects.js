@@ -9,10 +9,15 @@ import {
 import { FaGithub, FaFigma } from 'react-icons/fa';
 
 import ProjectDetails, { projectsData } from './ProjectDetails';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState('All');
   const [selectedProject, setSelectedProject] = useState(null);
+  
+  // Scroll animation refs
+  const filterRef = useScrollAnimation({ threshold: '0.2' });
+  const projectsGridRef = useScrollAnimation({ threshold: '0.2' });
 
   const categories = [
     'All',
@@ -67,7 +72,7 @@ export default function Projects() {
         </div>
 
         {/* Filters */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        <div ref={filterRef} className="flex flex-wrap justify-center gap-3 mb-12">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -84,7 +89,7 @@ export default function Projects() {
         </div>
 
         {/* Projects */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={projectsGridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project) => {
             const Icon = project.icon;
 

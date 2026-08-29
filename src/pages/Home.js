@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRight, Download, Mail } from 'lucide-react';
 import { FaGithub, FaLinkedin, FaMedium } from 'react-icons/fa';
-import myCV from '../assets/Gayangi_Devindi_CV.pdf';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const GITHUB_URL = 'https://github.com/gayangidevindi';
 const LINKEDIN_URL = 'https://www.linkedin.com/in/gayangi-devindi-0272a8290/';
@@ -16,6 +16,9 @@ const professionalStats = [
 ];
 
 export default function Home() {
+  const statsRef = useScrollAnimation({ threshold: '0.2' });
+  const techRef = useScrollAnimation({ threshold: '0.2' });
+
   return (
     <div id="home" className="bg-[#0a0a0f]">
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden py-20 px-6 md:px-12 lg:px-24">
@@ -31,7 +34,7 @@ export default function Home() {
           <p className="text-slate-500 text-sm mb-10">React <span className="text-orange-400">•</span> NestJS <span className="text-orange-400">•</span> Firebase <span className="text-orange-400">•</span> Node.js <span className="text-orange-400">•</span> Cloud <span className="text-orange-400">•</span> AI</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <a href="#projects" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-orange-600 hover:bg-orange-500 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105">View Projects<ArrowRight size={20} /></a>
-            <a href={myCV} download="Gayangi_Devindi_CV.pdf" className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-orange-500 text-orange-400 hover:text-orange-300 hover:border-orange-400 font-semibold rounded-xl transition-all duration-300"><Download size={20} />Download CV</a>
+            <a href="/Gayangi_Devindi_CV.pdf" download="Gayangi_Devindi_CV.pdf" className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-orange-500 text-orange-400 hover:text-orange-300 hover:border-orange-400 font-semibold rounded-xl transition-all duration-300"><Download size={20} />Download CV</a>
           </div>
           <div className="flex justify-center items-center gap-3 mb-14" aria-label="Professional social links">
             <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="w-11 h-11 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all"><FaGithub size={19} /></a>
@@ -39,9 +42,9 @@ export default function Home() {
             <a href={MEDIUM_PROFILE_URL} target="_blank" rel="noopener noreferrer" aria-label="Medium" className="w-11 h-11 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all"><FaMedium size={19} /></a>
             <a href={EMAIL} aria-label="Email" className="w-11 h-11 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all"><Mail size={19} /></a>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-left">
+          <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-3 text-left">
             {professionalStats.map((stat) => (
-              <div key={stat.value} className="bg-[#16161f]/80 border border-[#2a2a3a] rounded-xl p-4">
+              <div key={stat.value} data-scroll-child className="bg-[#16161f]/80 border border-[#2a2a3a] rounded-xl p-4">
                 <div className="text-xl font-bold text-orange-400">{stat.value}</div>
                 <div className="text-slate-500 text-xs leading-relaxed mt-1">{stat.label}</div>
               </div>
@@ -49,7 +52,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="py-16 px-6 md:px-12 lg:px-24 bg-[#111118] border-t border-[#2a2a3a]">
+      <section ref={techRef} className="py-16 px-6 md:px-12 lg:px-24 bg-[#111118] border-t border-[#2a2a3a]">
         <div className="max-w-6xl mx-auto">
           <p className="text-center text-slate-500 mb-8 text-sm">TECHNOLOGIES & TOOLS</p>
           <div className="flex flex-wrap justify-center gap-3">

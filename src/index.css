@@ -27,3 +27,72 @@ body {
 code {
   font-family: 'JetBrains Mono', monospace;
 }
+
+/* Scroll-triggered animation keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Elements with this class start hidden until the scroll hook reveals them */
+.reveal-on-scroll {
+  opacity: 0;
+}
+
+/* Hook adds "scroll-animate" or "scroll-animate-fade" when element enters viewport */
+.reveal-on-scroll.scroll-animate {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.reveal-on-scroll.scroll-animate-fade {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Stagger animations for child elements */
+.reveal-on-scroll [data-scroll-child] {
+  opacity: 0;
+}
+
+.reveal-on-scroll.scroll-animate [data-scroll-child],
+.reveal-on-scroll.scroll-animate-fade [data-scroll-child] {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.reveal-on-scroll [data-scroll-child]:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.reveal-on-scroll [data-scroll-child]:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.reveal-on-scroll [data-scroll-child]:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.reveal-on-scroll [data-scroll-child]:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.reveal-on-scroll [data-scroll-child]:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.reveal-on-scroll [data-scroll-child]:nth-child(n+6) {
+  animation-delay: 0.6s;
+}

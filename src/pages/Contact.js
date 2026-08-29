@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, CheckCircle, Download } from 'lucide-react';
 import { FaGithub, FaLinkedin, FaMedium } from 'react-icons/fa';
-import myCV from '../assets/Gayangi_Devindi_CV.pdf';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  
+  // Scroll animation refs
+  const infoRef = useScrollAnimation({ threshold: '0.2' });
+  const formRef = useScrollAnimation({ threshold: '0.2' });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,7 +34,7 @@ export default function Contact() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12">
-          <div>
+          <div ref={infoRef} className="">
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-white mb-8">Contact Information</h2>
 
@@ -79,12 +83,12 @@ export default function Contact() {
                 <a href="https://medium.com/@gayangidevindi" target="_blank" rel="noopener noreferrer" aria-label="Medium" className="w-12 h-12 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all">
                   <FaMedium size={20} />
                 </a>
-                <a href={myCV} download="Gayangi_Devindi_CV.pdf" aria-label="Download CV" className="inline-flex items-center gap-2 px-4 h-12 border border-orange-500/50 rounded-xl text-orange-400 hover:bg-orange-500/10 transition-all"><Download size={18} /> CV</a>
+                <a href="/Gayangi_Devindi_CV.pdf" download="Gayangi_Devindi_CV.pdf" aria-label="Download CV" className="inline-flex items-center gap-2 px-4 h-12 border border-orange-500/50 rounded-xl text-orange-400 hover:bg-orange-500/10 transition-all"><Download size={18} /> CV</a>
               </div>
             </div>
           </div>
 
-          <div className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-8">
+          <div ref={formRef} className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-sm text-slate-400 mb-2">Name</label>

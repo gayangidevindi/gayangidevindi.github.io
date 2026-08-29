@@ -5,7 +5,6 @@ import {
   Smartphone, Palette, Users, Award, ExternalLink, Mail, Download,
   GraduationCap, TrendingUp, School, Target, Circle, Sparkles,
 } from "lucide-react";
-import myCV from "../assets/Gayangi_Devindi_CV.pdf";
 import profileImg1 from "../assets/me.jpg";
 import profileImg2 from "../assets/m1.jpg";
 import profileImg3 from "../assets/m2.jpg";
@@ -157,7 +156,7 @@ function About() {
                 <Mail size={16} /> Contact
               </Link>
               <a
-                href={myCV}
+                href="/Gayangi_Devindi_CV.pdf"
                 download="Gayangi_Devindi_CV.pdf"
                 className="inline-flex items-center gap-2 border border-orange-500/50 hover:border-orange-500 hover:bg-orange-500/10 text-orange-400 hover:text-orange-300 font-semibold px-6 py-3 rounded-xl transition-all duration-200"
               >
