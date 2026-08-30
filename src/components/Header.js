@@ -31,12 +31,12 @@ function LogoMark({ className = 'w-5 h-5' }) {
 const navLinks = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'education', label: 'Education' },
-  { id: 'projects', label: 'Projects' },
   { id: 'experience', label: 'Experience' },
+  { id: 'education', label: 'Education' },
   { id: 'certifications', label: 'Achievements' },
+  { id: 'skills', label: 'Skills' },
   { id: 'writing', label: 'Writing' },
+  { id: 'projects', label: 'Projects' },
   { id: 'contact', label: 'Contact' },
 ];
 

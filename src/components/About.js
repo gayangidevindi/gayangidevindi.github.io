@@ -26,7 +26,7 @@ const LinkedInIcon = ({ size = 20, className = "" }) => (
 
 const skillGroups = [
   { title: "Languages", items: ["Java", "C/C++", "JavaScript", "PHP", "Python"] },
-  { title: "Frontend & Mobile", items: ["React", "HTML/CSS", "Flutter", "Dart"] },
+  { title: "Frontend & Mobile", items: ["React","Next.js", "HTML/CSS", "Flutter", "Dart"] },
   { title: "Backend & Data", items: ["Firebase", "Node.js", "REST APIs"] },
   { title: "Cloud, Tools & Design", items: ["Git", "ESP32", "Figma", "UI/UX Prototyping"] },
 ];
