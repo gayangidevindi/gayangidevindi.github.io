@@ -7,10 +7,12 @@ import Home from './pages/Home';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import ScrollToTopButton from './components/ScrollToTopButton';
+import PortfolioLoader from './components/PortfolioLoader';
 
 function App() {
   return (
     <div className="App">
+      <PortfolioLoader />
       <Header />
 
       <main>

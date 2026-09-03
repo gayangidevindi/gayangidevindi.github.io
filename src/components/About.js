@@ -99,9 +99,9 @@ const certificates = [
 ];
 
 const featuredProjects = [
-  { title: "Flutter Mobile App", desc: "A cross-platform mobile app to control IoT devices and monitor sensors in real time.", stack: ["Flutter", "Dart", "Firebase"] },
-  { title: "Coffee Shop Website", desc: "Full-stack website with dynamic menu, online ordering, and an admin panel.", stack: ["PHP", "HTML", "CSS", "JavaScript"] },
-  { title: "Compost Monitoring System", desc: "ESP32-powered system with a React dashboard for real-time compost data monitoring.", stack: ["ESP32", "React", "Arduino IDE"] },
+  { title: "MediCareX", desc: "A full-stack pharmacy and supply-chain platform connecting customers, pharmacists, suppliers, and administrators.", stack: ["React", "NestJS", "Firebase"] },
+  { title: "Study Helper Bot", desc: "An AI-powered study workspace with concept tutoring, generated quizzes, and short-answer practice.", stack: ["Next.js", "TypeScript", "Groq"] },
+  { title: "Exposure - AI Image Generator", desc: "A Next.js image-generation platform with prompt enhancement, saved galleries, and credit-based payments.", stack: ["Next.js", "Supabase", "Stripe"] },
 ];
 
 const galleryImages = [
@@ -144,6 +144,49 @@ function SectionLabel({ text }) {
       <p className="text-orange-400 text-xs tracking-widest uppercase mb-2">{text}</p>
       <div className="h-px w-12 bg-orange-500" />
     </div>
+  );
+}
+
+function SkillChip({ skill }) {
+  return (
+    <span className="group/skill inline-flex items-center gap-2 rounded-xl border border-[#2a2a3a] bg-[#0a0a0f]/75 px-3 py-2 text-xs font-medium text-slate-200 transition-all duration-300 hover:-translate-y-0.5 hover:border-orange-500/50 hover:bg-orange-500/[0.06] hover:text-orange-100">
+      <span className="flex h-6 w-6 items-center justify-center rounded-md border border-orange-500/20 bg-orange-500/10 text-[10px] font-bold uppercase text-orange-300" aria-hidden="true">
+        {skill.slice(0, 2)}
+      </span>
+      {skill}
+    </span>
+  );
+}
+
+const skillCategoryDetails = {
+  Languages: { description: "Core programming languages", icon: Code2 },
+  "Frontend & Mobile": { description: "Building modern user interfaces", icon: Smartphone },
+  "Backend & Data": { description: "Services, APIs and data workflows", icon: Code2 },
+  "Cloud, Tools & Design": { description: "Development and design workflow", icon: Cpu },
+};
+
+function SkillCategory({ group }) {
+  const details = skillCategoryDetails[group.title];
+  const Icon = details.icon;
+
+  return (
+    <article className="group relative overflow-hidden rounded-2xl border border-[#2a2a3a] bg-[#111118] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-orange-500/40 hover:shadow-[0_16px_40px_-24px_rgba(251,146,60,0.65)]">
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-orange-500/[0.05] via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      <div className="relative">
+        <div className="mb-5 flex items-center gap-4">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-orange-500/25 bg-orange-500/10 text-orange-300">
+            <Icon size={20} aria-hidden="true" />
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold text-white">{group.title}</h3>
+            <p className="mt-1 text-xs text-slate-500">{details.description}</p>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {group.items.map((skill) => <SkillChip key={skill} skill={skill} />)}
+        </div>
+      </div>
+    </article>
   );
 }
 
@@ -472,18 +515,15 @@ function About() {
       <section ref={skillsRef} id="skills" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
         <div className="max-w-6xl mx-auto">
           <SectionLabel text="Skills" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Technical Skills</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {skillGroups.map((group) => (
-              <div key={group.title} className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-5 hover:border-orange-500/50 transition-colors">
-                <h3 className="text-white font-semibold mb-4">{group.title}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {group.items.map((skill) => (
-                    <span key={skill} className="bg-[#0a0a0f] border border-[#2a2a3a] text-slate-300 rounded-full px-3 py-1.5 text-xs font-medium">{skill}</span>
-                  ))}
-                </div>
-              </div>
-            ))}
+          <div className="mb-10 max-w-3xl">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">Technical Skills</h2>
+            <p className="mt-4 text-slate-400 leading-relaxed">
+              Technologies and tools I use to build modern, scalable applications.
+            </p>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-2">
+            {skillGroups.map((group) => <SkillCategory key={group.title} group={group} />)}
           </div>
         </div>
       </section>

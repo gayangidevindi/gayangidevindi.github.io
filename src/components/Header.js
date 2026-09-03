@@ -98,30 +98,24 @@ function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
           scrolled
-            ? 'bg-[#0a0a0f]/90 backdrop-blur-2xl border-b border-white/[0.06] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.5)]'
-            : 'bg-gradient-to-b from-[#0a0a0f]/60 to-transparent border-b border-transparent'
+            ? 'bg-[#0a0a0f]/75 backdrop-blur-2xl border-b border-white/[0.08] shadow-[0_10px_30px_-18px_rgba(0,0,0,0.8)]'
+            : 'bg-gradient-to-b from-[#0a0a0f]/45 via-[#0a0a0f]/10 to-transparent border-b border-transparent backdrop-blur-[2px]'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24">
-          <div className="flex justify-between items-center h-16 md:h-20">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-12">
+          <div className={`flex justify-between items-center transition-all duration-500 ease-out ${scrolled ? 'h-14 md:h-16' : 'h-16 md:h-20'}`}>
             <a
               href="#home"
-              className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0f] rounded-lg"
+              className="group flex min-w-0 items-center rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0f]"
               onClick={() => setMobileMenuOpen(false)}
             >
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl blur-md opacity-50 group-hover:opacity-90 transition-opacity duration-300" />
-                <div className="relative w-9 h-9 bg-gradient-to-br from-[#15151d] to-[#0a0a0f] rounded-xl flex items-center justify-center shadow-inner shadow-white/5 ring-1 ring-orange-500/20 transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3 overflow-hidden">
-                  <LogoMark className="w-8 h-8" />
-                </div>
-              </div>
-              <div className="hidden sm:flex flex-col leading-none">
-                <span className="text-white font-semibold text-sm tracking-wide">Gayangi Devindi</span>
-                <span className="text-orange-400/90 text-[10px] font-medium tracking-[0.2em] uppercase mt-1">Portfolio</span>
+              <div className="flex min-w-0 flex-col leading-none">
+                <span className="truncate text-sm font-semibold tracking-[0.02em] text-white transition-colors duration-300 group-hover:text-orange-100">GAYANGI</span>
+                <span className="mt-1.5 text-[9px] font-medium uppercase tracking-[0.24em] text-orange-400/75">Tech Explorer</span>
               </div>
             </a>
 
-            <nav className="hidden lg:flex items-center gap-1" aria-label="Primary">
+            <nav className="hidden lg:flex items-center gap-0.5" aria-label="Primary">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.id;
                 return (
@@ -130,16 +124,16 @@ function Header() {
                     href={`#${link.id}`}
                     onClick={() => setMobileMenuOpen(false)}
                     aria-current={isActive ? 'page' : undefined}
-                    className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 group focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400/60 ${
+                    className={`relative rounded-lg px-3.5 py-2 text-sm font-medium transition-all duration-300 group focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400/60 ${
                       isActive ? 'text-white' : 'text-slate-400 hover:text-white'
                     }`}
                   >
                     {isActive && (
-                      <span className="absolute inset-0 bg-white/[0.04] border border-white/10 rounded-lg" />
+                      <span className="absolute inset-0 rounded-lg border border-white/[0.08] bg-white/[0.04]" />
                     )}
-                    <span className="absolute inset-0 bg-white/[0.03] border border-transparent group-hover:border-white/10 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-200" />
+                    <span className="absolute inset-0 rounded-lg border border-transparent bg-white/[0.03] opacity-0 transition-all duration-300 group-hover:border-white/[0.08] group-hover:opacity-100" />
                     {isActive && (
-                      <span className="absolute -bottom-[1px] left-1/2 -translate-x-1/2 w-4 h-[2px] bg-gradient-to-r from-orange-400 to-amber-400 rounded-full" />
+                      <span className="absolute -bottom-px left-1/2 h-0.5 w-4 -translate-x-1/2 rounded-full bg-gradient-to-r from-orange-400 to-amber-400" />
                     )}
                     <span className="relative">{link.label}</span>
                   </a>
@@ -152,13 +146,13 @@ function Header() {
                 href="https://github.com/gayangidevindi"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs font-medium text-slate-400 hover:text-white border border-white/10 hover:border-orange-500/50 bg-white/[0.02] hover:bg-white/[0.05] px-3.5 py-2 rounded-lg transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400/60"
+                className="group flex items-center gap-1.5 rounded-lg border border-white/[0.1] bg-white/[0.02] px-3.5 py-2 text-xs font-medium text-slate-400 transition-all duration-300 hover:border-orange-400/40 hover:bg-white/[0.05] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400/60"
               >
-                GitHub <ArrowUpRight size={13} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+                GitHub <ArrowUpRight size={13} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
               <button
                 onClick={() => setHireModalOpen(true)}
-                className="flex items-center gap-1.5 text-xs font-semibold text-white bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 px-4 py-2 rounded-lg transition-all duration-200 shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-px active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-300/70"
+                className="flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-orange-600 to-amber-600 px-4 py-2 text-xs font-semibold text-white shadow-[0_8px_20px_-10px_rgba(251,146,60,0.8)] transition-all duration-300 hover:-translate-y-px hover:from-orange-500 hover:to-amber-500 hover:shadow-[0_10px_24px_-10px_rgba(251,146,60,0.95)] active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-300/70"
               >
                 Hire Me
               </button>
@@ -192,12 +186,10 @@ function Header() {
         />
 
         <div className={`absolute top-0 right-0 h-full w-72 bg-[#0d0d13] border-l border-white/10 shadow-[-20px_0_60px_-15px_rgba(0,0,0,0.6)] transition-transform duration-300 ease-out ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-          <div className="flex items-center justify-between px-6 h-16 border-b border-white/10">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 bg-gradient-to-br from-[#15151d] to-[#0a0a0f] rounded-lg flex items-center justify-center ring-1 ring-orange-500/20 overflow-hidden">
-                <LogoMark className="w-6 h-6" />
-              </div>
-              <span className="text-white font-semibold text-sm">Gayangi Devindi</span>
+          <div className="flex h-16 items-center justify-between border-b border-white/10 px-6">
+            <div className="flex min-w-0 flex-col leading-none">
+              <span className="truncate text-sm font-semibold tracking-[0.02em] text-white">Gayangi Devindi</span>
+              <span className="mt-1.5 text-[9px] font-medium uppercase tracking-[0.24em] text-orange-400/75">Software Engineer</span>
             </div>
             <button
               onClick={() => setMobileMenuOpen(false)}
