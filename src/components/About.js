@@ -17,6 +17,11 @@ import profileImg8 from "../assets/m7.jpg";
 import profileImg9 from "../assets/f3.jpg";
 import certImg1 from "../assets/port.jpg";
 import certImg2 from "../assets/leo.jpg";
+import certificateImg1 from "../assets/c1.jpeg";
+import certificateImg2 from "../assets/c2.jpeg";
+import certificateImg3 from "../assets/c3.jpeg";
+import certificateImg4 from "../assets/c4.jpeg";
+import certificateImg5 from "../assets/c5.png";
 
 const LinkedInIcon = ({ size = 20, className = "" }) => (
   <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" className={className}>
@@ -85,6 +90,14 @@ const achievements = [
   },
 ];
 
+const certificates = [
+  { title: "Introduction to Generative AI Studio", organizer: "Google Cloud via Simplilearn SkillUp", date: "August 2026", image: certificateImg1 },
+  { title: "Object Oriented Programming Foundations", organizer: "10Pearls University", date: "February 2025", image: certificateImg2 },
+  { title: "Python from Zero-to-Hero (Beginner Level)", organizer: "Udemy", date: "February 2025", image: certificateImg3 },
+  { title: "Python for Beginners", organizer: "Centre for Open & Distance Learning (CODL), University of Moratuwa", date: "March 2024", image: certificateImg4 },
+  { title: "AWS Knowledge: Amazon Q Developer Fundamentals — Training Badge", organizer: "Amazon Web Services Training and Certification via Credly", date: "August 2026", image: certificateImg5 },
+];
+
 const featuredProjects = [
   { title: "Flutter Mobile App", desc: "A cross-platform mobile app to control IoT devices and monitor sensors in real time.", stack: ["Flutter", "Dart", "Firebase"] },
   { title: "Coffee Shop Website", desc: "Full-stack website with dynamic menu, online ordering, and an admin panel.", stack: ["PHP", "HTML", "CSS", "JavaScript"] },
@@ -136,6 +149,7 @@ function SectionLabel({ text }) {
 
 function About() {
   const [activeAchievement, setActiveAchievement] = React.useState(null);
+  const [activeCertificate, setActiveCertificate] = React.useState(null);
   const [showFullProfile, setShowFullProfile] = React.useState(false);
 
   // Scroll animation refs
@@ -360,52 +374,68 @@ function About() {
         </div>
       </section>
 
-      {/* Memberships & Achievements */}
-      <section ref={achievementsRef} className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a];">
+      {/* Memberships */}
+      <section id="memberships" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a] scroll-mt-24">
+        <div className="max-w-6xl mx-auto">
+          <SectionLabel text="Community" />
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Memberships</h2>
+          <div className="grid md:grid-cols-2 gap-4">
+            {memberships.map((item, idx) => (
+              <div key={idx} className="flex gap-4 bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 hover:border-orange-500/50 transition-all">
+                <div className="mt-1 w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center flex-shrink-0">
+                  <Award size={18} className="text-white" />
+                </div>
+                <div>
+                  <p className="text-white font-semibold text-sm">{item.role}</p>
+                  <p className="text-slate-400 text-sm mt-1">{item.org}</p>
+                  <p className="text-slate-500 text-xs mt-2">Term {item.term}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Achievements */}
+      <section ref={achievementsRef} id="achievements" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a] scroll-mt-24">
         <div className="max-w-6xl mx-auto">
           <SectionLabel text="Achievements" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Memberships & Achievements</h2>
-          <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
-            <div>
-              <h3 className="text-xl font-semibold text-white mb-6">Memberships</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {memberships.map((item, idx) => (
-                  <div key={idx} className="flex gap-4 bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 hover:border-orange-500/50 transition-all">
-                    <div className="mt-1 w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center flex-shrink-0">
-                      <Award size={18} className="text-white" />
-                    </div>
-                    <div>
-                      <p className="text-white font-semibold text-sm">{item.role}</p>
-                      <p className="text-slate-400 text-sm mt-1">{item.org}</p>
-                      <p className="text-slate-500 text-xs mt-2">Term {item.term}</p>
-                    </div>
-                  </div>
-                ))}
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Achievements</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {achievements.map((item, idx) => (
+              <div key={idx} className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl overflow-hidden hover:border-orange-500/50 transition-all">
+                <button type="button" onClick={() => setActiveAchievement(item)} className="w-full overflow-hidden">
+                  <img src={item.image} alt={item.title} className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105" />
+                </button>
+                <div className="p-6">
+                  <p className="text-white font-semibold mb-2">{item.title}</p>
+                  <p className="text-slate-400 text-sm mb-3">{item.organizer}</p>
+                  <p className="text-slate-500 text-xs">{item.date}</p>
+                </div>
               </div>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold text-white mb-6">Achievements</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
-                {achievements.map((item, idx) => (
-                  <div key={idx} className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl overflow-hidden hover:border-orange-500/50 transition-all">
-                    {item.image && (
-                      <button
-                        type="button"
-                        onClick={() => setActiveAchievement(item)}
-                        className="w-full overflow-hidden"
-                      >
-                        <img src={item.image} alt={item.title} className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105" />
-                      </button>
-                    )}
-                    <div className="p-6">
-                      <p className="text-white font-semibold mb-2">{item.title}</p>
-                      <p className="text-slate-400 text-sm mb-3">{item.organizer}</p>
-                      <p className="text-slate-500 text-xs">{item.date}</p>
-                    </div>
-                  </div>
-                ))}
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Certificates */}
+      <section id="certificates" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a] scroll-mt-24">
+        <div className="max-w-6xl mx-auto">
+          <SectionLabel text="Learning" />
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Certificates</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {certificates.map((item) => (
+              <div key={item.title} className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl overflow-hidden hover:border-orange-500/50 transition-all">
+                <button type="button" onClick={() => setActiveCertificate(item)} className="w-full overflow-hidden">
+                  <img src={item.image} alt={item.title} className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105" />
+                </button>
+                <div className="p-6">
+                  <p className="text-white font-semibold mb-2">{item.title}</p>
+                  <p className="text-slate-400 text-sm mb-3">{item.organizer}</p>
+                  <p className="text-slate-500 text-xs">{item.date}</p>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -506,6 +536,22 @@ function About() {
               <h3 className="text-xl font-semibold text-white mb-3">{activeAchievement.title}</h3>
               <p className="text-slate-400 mb-1">{activeAchievement.organizer}</p>
               <p className="text-slate-500 text-sm">{activeAchievement.date}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeCertificate && (
+        <div className="fixed inset-0 z-50 bg-[#0a0a0f]/95 flex items-center justify-center p-6" onClick={() => setActiveCertificate(null)}>
+          <div className="relative max-w-4xl w-full bg-[#16161f] border border-[#2a2a3a] rounded-3xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
+            <button type="button" onClick={() => setActiveCertificate(null)} aria-label="Close certificate" className="absolute top-4 right-4 z-20 inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#0a0a0f] border border-[#2a2a3a] text-slate-300 hover:text-white hover:border-orange-500/50 transition-all">
+              <X size={18} />
+            </button>
+            <img src={activeCertificate.image} alt={activeCertificate.title} className="w-full max-h-[80vh] object-contain bg-[#0a0a0f]" />
+            <div className="p-6">
+              <h3 className="text-xl font-semibold text-white mb-3">{activeCertificate.title}</h3>
+              <p className="text-slate-400 mb-1">{activeCertificate.organizer}</p>
+              <p className="text-slate-500 text-sm">{activeCertificate.date}</p>
             </div>
           </div>
         </div>

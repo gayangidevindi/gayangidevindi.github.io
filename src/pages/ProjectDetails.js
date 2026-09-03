@@ -22,6 +22,19 @@ import {
 
 import { FaGithub, FaFigma } from 'react-icons/fa';
 
+import cover1 from '../assets/p1.jpeg';
+import cover2 from '../assets/p2.jpeg';
+import cover3 from '../assets/p3.png';
+import cover4 from '../assets/p4.jpg';
+import cover5 from '../assets/p5.jpg';
+import cover6 from '../assets/p6.png';
+import cover7 from '../assets/p7.jpeg';
+import cover8 from '../assets/p8.jpeg';
+import cover9 from '../assets/p9.jpeg';
+import cover10 from '../assets/p10.png';
+import cover11 from '../assets/p11.jpeg';
+import cover12 from '../assets/p12.jpeg';
+
 /* =========================================================
    PROJECT DATA
 ========================================================= */
@@ -34,6 +47,7 @@ export const projectsData = [
 
   {
     id: 1,
+    cover: cover1,
 
     title: 'MediCareX — Smart Online Pharmacy Management System',
 
@@ -174,6 +188,7 @@ export const projectsData = [
 
   {
     id: 2,
+    cover: cover2,
 
     title: 'MediCareX Mobile App — UI/UX Design',
 
@@ -218,6 +233,7 @@ export const projectsData = [
 
   {
     id: 3,
+    cover: cover3,
 
     title: 'MediCareX Supplier Dashboard — UI/UX Design',
 
@@ -262,6 +278,7 @@ export const projectsData = [
 
   {
     id: 4,
+    cover: cover4,
 
     title: 'Rapid Compost Maker',
 
@@ -302,6 +319,7 @@ export const projectsData = [
 
   {
     id: 5,
+    cover: cover5,
 
     title: 'Caffeetto — Coffee Shop Website',
 
@@ -342,6 +360,7 @@ export const projectsData = [
 
   {
     id: 6,
+    cover: cover6,
 
     title: 'Flutter Mobile App',
 
@@ -380,6 +399,7 @@ export const projectsData = [
 
   {
     id: 7,
+    cover: cover7,
 
     title: 'App UI/UX Design',
 
@@ -418,6 +438,7 @@ export const projectsData = [
 
   {
     id: 8,
+    cover: cover8,
 
     title: 'PetShop — E-Commerce Platform',
 
@@ -462,6 +483,7 @@ export const projectsData = [
 
   {
     id: 9,
+    cover: cover9,
 
     title: 'DigiX — Pet Project',
 
@@ -500,6 +522,7 @@ export const projectsData = [
 
   {
     id: 10,
+    cover: cover10,
 
     title: 'Portfolio Website',
 
@@ -539,6 +562,7 @@ export const projectsData = [
 
   {
     id: 11,
+    cover: cover11,
 
     title: 'Study Helper Bot',
 
@@ -585,6 +609,7 @@ export const projectsData = [
 
   {
     id: 12,
+    cover: cover12,
 
     title: 'Exposure - AI Image Generator',
 
@@ -691,6 +716,121 @@ export default function ProjectDetails({
           event.stopPropagation()
         }
       >
+
+      {/* =====================================================
+          COVER — browser chrome + right-aligned preview image
+          Redesigned: image sits in a fixed-aspect box on the
+          right (object-contain, never cropped), with a quick
+          summary + CTA panel on the left for a more premium,
+          "case study" presentation feel.
+      ===================================================== */}
+      {project.cover && (
+        <div className="mb-8 overflow-hidden rounded-2xl border border-[#2a2a3a] bg-gradient-to-br from-[#0d0d14] via-[#0d0d14] to-[#12121b] shadow-lg shadow-black/40">
+
+          {/* Browser-style chrome bar */}
+          <div className="flex items-center gap-2 border-b border-[#2a2a3a] bg-[#111118] px-4 py-2.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
+            <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/70" />
+            <span className="h-2.5 w-2.5 rounded-full bg-green-500/70" />
+            <span className="ml-3 truncate rounded-md bg-[#1c1c26] px-3 py-1 text-xs text-slate-500">
+              {project.liveDemo || project.prototype || project.title}
+            </span>
+          </div>
+
+          <div className="grid md:grid-cols-[1.05fr_1.45fr]">
+
+            {/* Left — quick-glance summary panel */}
+            <div className="flex flex-col justify-center gap-5 p-6 md:p-8 border-b md:border-b-0 md:border-r border-[#2a2a3a]">
+
+              <div className="flex items-center gap-2 text-orange-400 text-xs font-semibold uppercase tracking-wider">
+                <span className="h-1.5 w-1.5 rounded-full bg-orange-400 animate-pulse" />
+                Featured Preview
+              </div>
+
+              <h3 className="text-xl md:text-2xl font-bold text-white leading-snug">
+                {project.title}
+              </h3>
+
+              <p className="text-slate-400 text-sm leading-relaxed">
+                {project.description}
+              </p>
+
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/25 text-orange-400 text-xs font-semibold">
+                  {project.category}
+                </span>
+
+                {project.status && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-semibold">
+                    <CheckCircle2 size={12} />
+                    {project.status}
+                  </span>
+                )}
+
+                {project.role && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1c1c26] border border-[#2a2a3a] text-slate-300 text-xs font-semibold">
+                    <Crown size={12} className="text-orange-400" />
+                    {project.role}
+                  </span>
+                )}
+              </div>
+
+              {(project.liveDemo || project.prototype) && (
+                <div className="flex flex-wrap gap-3 pt-1">
+                  {project.liveDemo && (
+                    <a
+                      href={project.liveDemo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-orange-600 hover:bg-orange-500 text-white text-sm font-semibold rounded-lg transition-all duration-300"
+                    >
+                      <ExternalLink size={15} />
+                      Live Demo
+                    </a>
+                  )}
+
+                  {project.prototype && (
+                    <a
+                      href={project.prototype}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-[#1c1c26] border border-[#2a2a3a] hover:border-orange-500/60 text-slate-300 hover:text-white text-sm font-semibold rounded-lg transition-all duration-300"
+                    >
+                      <FaFigma size={15} />
+                      Prototype
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Right — full, uncropped preview image */}
+            <div className="relative flex items-center justify-center bg-[#0a0a0f] p-4 md:p-6">
+              <div className="relative w-full aspect-[4/3] md:aspect-[16/11] overflow-hidden rounded-xl border border-[#2a2a3a] bg-[#0d0d14] shadow-inner shadow-black/60">
+
+                {/* Blurred backdrop fill — decorative only */}
+                <img
+                  src={project.cover}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 h-full w-full scale-110 object-cover blur-2xl opacity-30"
+                />
+
+                {/* Real image — object-contain, so it's never cropped */}
+                <img
+                  src={project.cover}
+                  alt={`${project.title} cover`}
+                  className="relative z-10 h-full w-full object-contain p-3 drop-shadow-2xl"
+                />
+
+                {/* Subtle inner ring for a polished, framed look */}
+                <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-white/5" />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
 
         {/* Close Button */}
         <button
@@ -1267,15 +1407,29 @@ export default function ProjectDetails({
 
                   return (
                     <button
-                      key={relatedProject.id}
-                      type="button"
-                      onClick={() =>
-                        onSelectProject(
-                          relatedProject
-                        )
-                      }
-                      className="group bg-[#16161f] border border-[#2a2a3a] rounded-xl p-6 text-left hover:border-orange-500/50 transition-all"
-                    >
+                    key={relatedProject.id}
+                    type="button"
+                    onClick={() => onSelectProject(relatedProject)}
+                    className="group bg-[#16161f] border border-[#2a2a3a] rounded-xl overflow-hidden text-left hover:border-orange-500/50 transition-all"
+                  >
+
+                    {relatedProject.cover && (
+                      <div className="relative h-40 w-full overflow-hidden bg-[#0d0d14]">
+                        <img
+                          src={relatedProject.cover}
+                          alt=""
+                          aria-hidden="true"
+                          className="absolute inset-0 h-full w-full scale-110 object-cover blur-xl opacity-40"
+                        />
+                        <img
+                          src={relatedProject.cover}
+                          alt={`${relatedProject.title} cover`}
+                          className="relative z-10 h-full w-full object-contain p-3"
+                        />
+                      </div>
+                    )}
+
+                    <div className="p-6">
 
                       <div className="flex items-start gap-4 mb-4">
 
@@ -1302,7 +1456,9 @@ export default function ProjectDetails({
 
                       </div>
 
-                    </button>
+                    </div>
+
+                  </button>
                   );
                 })}
 

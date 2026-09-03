@@ -92,6 +92,7 @@ export default function Projects() {
         <div ref={projectsGridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project) => {
             const Icon = project.icon;
+            const isMedicareX = project.id === 1;
 
             return (
               <article
@@ -108,10 +109,15 @@ export default function Projects() {
                     setSelectedProject(project);
                   }
                 }}
-                className={`group relative cursor-pointer bg-[#16161f] border rounded-2xl p-6 hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300 ${project.id === 1 ? 'pt-24 md:pt-20 md:col-span-2 lg:col-span-3 border-orange-500/50 bg-gradient-to-br from-[#16161f] to-[#1b1718]' : 'border-[#2a2a3a]'}`}
+                className={`group relative cursor-pointer bg-[#16161f] border rounded-2xl p-6 md:p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300 ${
+                  isMedicareX
+                    ? 'pt-24 md:pt-20 md:col-span-2 lg:col-span-3 border-orange-500/50 bg-gradient-to-br from-[#16161f] to-[#1b1718]'
+                    : 'border-[#2a2a3a]'
+                }`}
               >
-                {project.id === 1 && (
-                  <div className="absolute top-5 right-5 flex max-w-[calc(100%-2.5rem)] flex-wrap justify-end gap-2">
+                {/* Badges for Featured Project (MedicareX) */}
+                {isMedicareX && (
+                  <div className="absolute top-5 right-5 z-10 flex max-w-[calc(100%-2.5rem)] flex-wrap justify-end gap-2">
                     <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-orange-500/10 border border-orange-500/30 text-orange-400 rounded-full text-xs font-semibold">
                       <Crown size={12} /> Group Project | Team Leader
                     </span>
@@ -120,77 +126,128 @@ export default function Projects() {
                     </span>
                   </div>
                 )}
-                {/* Role */}
-                {project.role && project.id !== 1 && (
+
+                {/* Role Badge for Other Projects */}
+                {project.role && !isMedicareX && (
                   <div className="absolute top-4 right-4 inline-flex items-center gap-1 px-2.5 py-1 bg-orange-500/10 border border-orange-500/30 text-orange-400 rounded-full text-xs font-semibold">
                     <Crown size={12} />
                     {project.role}
                   </div>
                 )}
 
-                {/* Icon */}
-                <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <Icon
-                    className="text-white"
-                    size={28}
-                  />
-                </div>
+                {/* Conditional Layout Container: 2 columns for MedicareX, standard flow for others */}
+                <div className={isMedicareX ? 'grid md:grid-cols-2 gap-8 items-center' : ''}>
+                  
+                  {/* Left Column: Details & Content */}
+                  <div className={isMedicareX ? 'flex flex-col justify-center' : ''}>
+                    {/* Regular project cover image (remains on top for non-MedicareX cards) */}
+                    {!isMedicareX && project.cover && (
+                      <img
+                        src={project.cover}
+                        alt={`${project.title} cover`}
+                        className="mb-6 h-44 w-full rounded-xl border border-[#2a2a3a] bg-[#0d0d14] object-contain md:h-52"
+                      />
+                    )}
 
-                {/* Title */}
-                <h3 className={`font-semibold text-white mb-3 pr-4 ${project.id === 1 ? 'text-2xl md:text-3xl max-w-3xl' : 'text-lg'}`}>
-                  {project.title}
-                </h3>
+                    {/* Icon */}
+                    <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <Icon className="text-white" size={28} />
+                    </div>
 
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {project.stack
-                    .slice(0, 2)
-                    .map((tech, idx) => (
-                      <span
-                        key={idx}
-                        className="text-xs px-2 py-1 bg-[#0a0a0f] border border-[#2a2a3a] text-orange-400 rounded"
-                      >
-                        {tech}
+                    {/* Title */}
+                    <h3
+                      className={`font-semibold text-white mb-3 pr-4 ${
+                        isMedicareX ? 'text-2xl md:text-3xl max-w-3xl' : 'text-lg'
+                      }`}
+                    >
+                      {project.title}
+                    </h3>
+
+                    {/* Tech Stack */}
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {project.stack.slice(0, isMedicareX ? 4 : 2).map((tech, idx) => (
+                        <span
+                          key={idx}
+                          className="text-xs px-2 py-1 bg-[#0a0a0f] border border-[#2a2a3a] text-orange-400 rounded"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {project.stack.length > (isMedicareX ? 4 : 2) && (
+                        <span className="text-xs px-2 py-1 bg-[#0a0a0f] border border-[#2a2a3a] text-slate-500 rounded">
+                          +{project.stack.length - (isMedicareX ? 4 : 2)}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Description */}
+                    <p
+                      className={`text-slate-400 mb-4 leading-relaxed ${
+                        isMedicareX ? 'text-base max-w-3xl' : 'text-sm'
+                      }`}
+                    >
+                      {project.description}
+                    </p>
+
+                    {/* Status */}
+                    {project.status && (
+                      <div className="mb-4">
+                        <span className="inline-flex items-center px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-full text-xs font-semibold">
+                          {project.status}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Action Links */}
+                    <div className="flex flex-wrap items-center gap-4 text-orange-400 group-hover:text-orange-300 transition-colors">
+                      <span className="inline-flex items-center text-sm font-medium">
+                        View Details <ArrowRight size={16} className="ml-2" />
                       </span>
-                    ))}
-
-                  {project.stack.length > 2 && (
-                    <span className="text-xs px-2 py-1 bg-[#0a0a0f] border border-[#2a2a3a] text-slate-500 rounded">
-                      +{project.stack.length - 2}
-                    </span>
-                  )}
-                </div>
-
-                {/* Description */}
-                <p className={`text-slate-400 mb-4 leading-relaxed ${project.id === 1 ? 'text-base max-w-3xl' : 'text-sm'}`}>
-                  {project.description}
-                </p>
-
-                {/* Status */}
-                {project.status && (
-                  <div className="mb-4">
-                    <span className="inline-flex items-center px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-full text-xs font-semibold">
-                      {project.status}
-                    </span>
+                      {project.liveDemo && (
+                        <a
+                          href={project.liveDemo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(event) => event.stopPropagation()}
+                          className="inline-flex items-center gap-1.5 text-xs text-slate-300 hover:text-orange-300"
+                        >
+                          <ExternalLink size={14} /> Live Demo
+                        </a>
+                      )}
+                      {project.prototype && (
+                        <a
+                          href={project.prototype}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(event) => event.stopPropagation()}
+                          className="inline-flex items-center gap-1.5 text-xs text-slate-300 hover:text-orange-300"
+                        >
+                          <FaFigma size={14} /> Figma
+                        </a>
+                      )}
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(event) => event.stopPropagation()}
+                          className="inline-flex items-center gap-1.5 text-xs text-slate-300 hover:text-orange-300"
+                        >
+                          <FaGithub size={14} /> GitHub
+                        </a>
+                      )}
+                    </div>
                   </div>
-                )}
 
-                <div className="flex flex-wrap items-center gap-4 text-orange-400 group-hover:text-orange-300 transition-colors">
-                  <span className="inline-flex items-center text-sm font-medium">View Details <ArrowRight size={16} className="ml-2" /></span>
-                  {project.liveDemo && (
-                    <a href={project.liveDemo} target="_blank" rel="noopener noreferrer" onClick={(event) => event.stopPropagation()} className="inline-flex items-center gap-1.5 text-xs text-slate-300 hover:text-orange-300">
-                      <ExternalLink size={14} /> Live Demo
-                    </a>
-                  )}
-                  {project.prototype && (
-                    <a href={project.prototype} target="_blank" rel="noopener noreferrer" onClick={(event) => event.stopPropagation()} className="inline-flex items-center gap-1.5 text-xs text-slate-300 hover:text-orange-300">
-                      <FaFigma size={14} /> Figma
-                    </a>
-                  )}
-                  {project.github && (
-                    <a href={project.github} target="_blank" rel="noopener noreferrer" onClick={(event) => event.stopPropagation()} className="inline-flex items-center gap-1.5 text-xs text-slate-300 hover:text-orange-300">
-                      <FaGithub size={14} /> GitHub
-                    </a>
+                  {/* Right Column: MedicareX Cover Image */}
+                  {isMedicareX && project.cover && (
+                    <div className="order-first md:order-last w-full h-full min-h-[240px] md:min-h-[300px]">
+                      <img
+                        src={project.cover}
+                        alt={`${project.title} cover`}
+                        className="w-full h-full max-h-[360px] rounded-xl border border-[#2a2a3a] bg-[#0d0d14] object-contain shadow-md"
+                      />
+                    </div>
                   )}
                 </div>
               </article>
