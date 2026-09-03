@@ -32,7 +32,7 @@ code {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
@@ -52,15 +52,16 @@ code {
 /* Elements with this class start hidden until the scroll hook reveals them */
 .reveal-on-scroll {
   opacity: 0;
+  transform: translateY(40px);
 }
 
 /* Hook adds "scroll-animate" or "scroll-animate-fade" when element enters viewport */
 .reveal-on-scroll.scroll-animate {
-  animation: fadeInUp 0.8s ease-out forwards;
+  animation: fadeInUp 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .reveal-on-scroll.scroll-animate-fade {
-  animation: fadeIn 0.8s ease-out forwards;
+  animation: fadeIn 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* Stagger animations for child elements */
@@ -70,31 +71,44 @@ code {
 
 .reveal-on-scroll.scroll-animate [data-scroll-child],
 .reveal-on-scroll.scroll-animate-fade [data-scroll-child] {
-  animation: fadeInUp 0.8s ease-out forwards;
+  animation: fadeInUp 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .reveal-on-scroll [data-scroll-child]:nth-child(1) {
-  animation-delay: 0.1s;
+  animation-delay: 0.08s;
 }
 
 .reveal-on-scroll [data-scroll-child]:nth-child(2) {
-  animation-delay: 0.2s;
+  animation-delay: 0.18s;
 }
 
 .reveal-on-scroll [data-scroll-child]:nth-child(3) {
-  animation-delay: 0.3s;
+  animation-delay: 0.28s;
 }
 
 .reveal-on-scroll [data-scroll-child]:nth-child(4) {
-  animation-delay: 0.4s;
+  animation-delay: 0.38s;
 }
 
 .reveal-on-scroll [data-scroll-child]:nth-child(5) {
-  animation-delay: 0.5s;
+  animation-delay: 0.48s;
 }
 
 .reveal-on-scroll [data-scroll-child]:nth-child(n+6) {
-  animation-delay: 0.6s;
+  animation-delay: 0.58s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  .reveal-on-scroll.scroll-animate,
+  .reveal-on-scroll.scroll-animate-fade,
+  .reveal-on-scroll [data-scroll-child],
+  .reveal-on-scroll.scroll-animate [data-scroll-child],
+  .reveal-on-scroll.scroll-animate-fade [data-scroll-child] {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @keyframes portfolioLoaderRing {

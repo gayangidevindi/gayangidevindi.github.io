@@ -11,6 +11,8 @@ export default function Contact() {
   // Scroll animation refs
   const infoRef = useScrollAnimation({ threshold: '0.2' });
   const formRef = useScrollAnimation({ threshold: '0.2' });
+  const contactHeaderRef = useScrollAnimation({ threshold: '0.2' });
+  const contactSectionRef = useScrollAnimation({ threshold: '0.2' });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,9 +26,9 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 px-6 md:px-12 lg:px-24 bg-[#0a0a0f]">
+    <section ref={contactSectionRef} id="contact" className="py-20 px-6 md:px-12 lg:px-24 bg-[#0a0a0f]">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-16 text-center">
+        <div ref={contactHeaderRef} className="mb-16 text-center">
           <p className="text-orange-400 text-xs tracking-widest uppercase mb-2">Get in Touch</p>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Open to Software Engineering Internship Opportunities</h1>
           <div className="w-12 h-px bg-orange-500 mx-auto mb-6" />
@@ -38,7 +40,7 @@ export default function Contact() {
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-white mb-8">Contact Information</h2>
 
-              <div className="flex items-start gap-4 mb-6">
+              <div data-scroll-child className="flex items-start gap-4 mb-6">
                 <div className="w-12 h-12 bg-[#16161f] border border-[#2a2a3a] rounded-xl flex items-center justify-center flex-shrink-0">
                   <Mail className="text-orange-400" size={20} />
                 </div>
@@ -50,7 +52,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 mb-6">
+              <div data-scroll-child className="flex items-start gap-4 mb-6">
                 <div className="w-12 h-12 bg-[#16161f] border border-[#2a2a3a] rounded-xl flex items-center justify-center flex-shrink-0">
                   <Phone className="text-orange-400" size={20} />
                 </div>
@@ -60,7 +62,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 mb-8">
+              <div data-scroll-child className="flex items-start gap-4 mb-8">
                 <div className="w-12 h-12 bg-[#16161f] border border-[#2a2a3a] rounded-xl flex items-center justify-center flex-shrink-0">
                   <MapPin className="text-orange-400" size={20} />
                 </div>
@@ -71,7 +73,7 @@ export default function Contact() {
               </div>
             </div>
 
-            <div>
+            <div data-scroll-child>
               <h3 className="font-semibold text-white mb-4">Follow Me</h3>
               <div className="flex flex-wrap gap-4">
                 <a href="https://github.com/gayangidevindi" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="w-12 h-12 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all">

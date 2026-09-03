@@ -12,6 +12,14 @@ export const useScrollAnimation = (options = {}) => {
 
   useEffect(() => {
     const element = ref.current;
+    if (!element) return undefined;
+
+    element.classList.add('reveal-on-scroll');
+
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+      element.classList.add(animation);
+      return undefined;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -28,7 +36,7 @@ export const useScrollAnimation = (options = {}) => {
       { threshold: parseFloat(threshold) }
     );
 
-    if (element) observer.observe(element);
+    observer.observe(element);
     return () => { if (element) observer.unobserve(element); };
   }, [once, threshold, animation]);
 

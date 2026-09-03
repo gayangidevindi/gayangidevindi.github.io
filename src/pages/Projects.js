@@ -18,6 +18,8 @@ export default function Projects() {
   // Scroll animation refs
   const filterRef = useScrollAnimation({ threshold: '0.2' });
   const projectsGridRef = useScrollAnimation({ threshold: '0.2' });
+  const projectsHeaderRef = useScrollAnimation({ threshold: '0.2' });
+  const projectsSectionRef = useScrollAnimation({ threshold: '0.1' });
 
   const categories = [
     'All',
@@ -37,13 +39,14 @@ export default function Projects() {
 
   return (
     <section
+      ref={projectsSectionRef}
       id="projects"
       className="py-20 px-6 md:px-12 lg:px-24 bg-[#0a0a0f]"
     >
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
-        <div className="mb-16 text-center">
+        <div ref={projectsHeaderRef} className="mb-16 text-center">
           <p className="text-orange-400 text-xs tracking-widest uppercase mb-2">
             Portfolio
           </p>
@@ -109,6 +112,7 @@ export default function Projects() {
                     setSelectedProject(project);
                   }
                 }}
+                data-scroll-child
                 className={`group relative cursor-pointer bg-[#16161f] border rounded-2xl p-6 md:p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300 ${
                   isMedicareX
                     ? 'pt-24 md:pt-20 md:col-span-2 lg:col-span-3 border-orange-500/50 bg-gradient-to-br from-[#16161f] to-[#1b1718]'

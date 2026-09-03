@@ -2,19 +2,11 @@ import React from "react";
 import {
   MapPin, ArrowRight, Code2, Cpu,
   Smartphone, Palette, Users, Award, ExternalLink, Mail, Download,
-  GraduationCap, TrendingUp, School, Target, Circle, Sparkles,
+  GraduationCap, TrendingUp, School, Target, Sparkles,
   Briefcase, X,
 } from "lucide-react";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import profileImg1 from "../assets/me.jpeg";
-import profileImg2 from "../assets/m1.jpg";
-import profileImg3 from "../assets/m2.jpg";
-import profileImg4 from "../assets/m3.jpg";
-import profileImg5 from "../assets/m4.jpg";
-import profileImg6 from "../assets/m5.jpg";
-import profileImg7 from "../assets/m6.jpg";
-import profileImg8 from "../assets/m7.jpg";
-import profileImg9 from "../assets/f3.jpg";
 import certImg1 from "../assets/port.jpg";
 import certImg2 from "../assets/leo.jpg";
 import certificateImg1 from "../assets/c1.jpeg";
@@ -36,6 +28,15 @@ const skillGroups = [
   { title: "Cloud, Tools & Design", items: ["Git", "ESP32", "Figma", "UI/UX Prototyping"] },
 ];
 
+const skillShowcaseGroups = [
+  { title: "Languages", items: skillGroups[0].items },
+  { title: "Frontend & Mobile", items: skillGroups[1].items },
+  { title: "Backend & APIs", items: ["Node.js", "REST APIs"] },
+  { title: "Databases & Cloud", items: ["Firebase"] },
+  { title: "Tools & IoT", items: ["Git", "ESP32", "Figma", "UI/UX Prototyping"] },
+  { title: "AI / Machine Learning", items: ["Generative AI", "AI Application Development", "Model/API Integration", "Python for AI/ML"] },
+];
+
 const alResults = [
   { subject: "Chemistry", grade: "A" },
   { subject: "Combined Maths", grade: "A" },
@@ -46,6 +47,12 @@ const MEDIUM_PROFILE_URL = "https://medium.com/@gayangidevindi";
 const mediumArticles = [];
 
 const currentlyLearning = ["Node.js", "TypeScript", "System Design", "AWS Basics"];
+
+const currentFocusItems = [
+  { title: "AI / Machine Learning", description: "Building foundational knowledge through guided study and experimentation." },
+  { title: "Generative AI", description: "Exploring practical AI-powered application patterns." },
+  { title: "Modern Software Engineering", description: "Developing stronger Node.js, TypeScript, system design, and AWS fundamentals." },
+];
 
 const services = [
   { icon: <Code2 size={22} />, title: "Web Development", desc: "Building responsive, full-stack web applications with modern frameworks." },
@@ -75,6 +82,12 @@ const memberships = [
   },
 ];
 
+const leadershipItems = [
+  ...volunteerItems,
+  { role: "Co-Lead, Programme Committee", org: "MERCon 2026 — University of Moratuwa" },
+  ...memberships.map((item) => ({ role: item.role, org: `${item.org} — Term ${item.term}` })),
+];
+
 const achievements = [
   {
     title: "Third Place — WebX Portfolio Design Competition",
@@ -99,14 +112,9 @@ const certificates = [
 ];
 
 const featuredProjects = [
-  { title: "MediCareX", desc: "A full-stack pharmacy and supply-chain platform connecting customers, pharmacists, suppliers, and administrators.", stack: ["React", "NestJS", "Firebase"] },
-  { title: "Study Helper Bot", desc: "An AI-powered study workspace with concept tutoring, generated quizzes, and short-answer practice.", stack: ["Next.js", "TypeScript", "Groq"] },
-  { title: "Exposure - AI Image Generator", desc: "A Next.js image-generation platform with prompt enhancement, saved galleries, and credit-based payments.", stack: ["Next.js", "Supabase", "Stripe"] },
-];
-
-const galleryImages = [
-  profileImg2, profileImg3, profileImg6, profileImg8,
-  profileImg4, profileImg5, profileImg7, profileImg9,
+  { title: "MediCareX", category: "Full-Stack Software", icon: Code2, desc: "A full-stack pharmacy and supply-chain platform connecting customers, pharmacists, suppliers, and administrators.", stack: ["React", "NestJS", "Firebase"] },
+  { title: "Study Helper Bot", category: "AI Web Application", icon: Sparkles, desc: "An AI-powered study workspace with concept tutoring, generated quizzes, and short-answer practice.", stack: ["Next.js", "TypeScript", "Groq"] },
+  { title: "Exposure - AI Image Generator", category: "AI Product", icon: Cpu, desc: "A Next.js image-generation platform with prompt enhancement, saved galleries, and credit-based payments.", stack: ["Next.js", "Supabase", "Stripe"] },
 ];
 
 // Data used by the "Full Profile" modal card
@@ -147,6 +155,48 @@ function SectionLabel({ text }) {
   );
 }
 
+function SectionHeader({ eyebrow, title, description, align = "left" }) {
+  return (
+    <div data-scroll-child className={`mb-10 ${align === "center" ? "text-center" : ""}`}>
+      <SectionLabel text={eyebrow} />
+      <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">{title}</h2>
+      {description && <p className="mt-4 max-w-2xl text-slate-400 leading-relaxed">{description}</p>}
+    </div>
+  );
+}
+
+function StatusBadge({ children }) {
+  return (
+    <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-500/[0.08] px-3 py-1.5 text-xs font-semibold text-emerald-300">
+      <span className="relative flex h-2 w-2" aria-hidden="true">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+      </span>
+      {children}
+    </span>
+  );
+}
+
+function SocialButton({ href, label, children }) {
+  return (
+    <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined} aria-label={label} className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[#2a2a3a] bg-[#111118]/80 text-slate-400 transition-all duration-300 hover:-translate-y-0.5 hover:border-orange-500/60 hover:bg-orange-500/10 hover:text-orange-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400/70">
+      {children}
+    </a>
+  );
+}
+
+function TimelineItem({ icon: Icon, children, last = false }) {
+  return (
+    <div className="relative pl-9">
+      {!last && <span className="absolute bottom-[-2rem] left-[0.45rem] top-5 w-px bg-gradient-to-b from-orange-500/60 to-[#2a2a3a]" aria-hidden="true" />}
+      <span className="absolute left-0 top-1 flex h-5 w-5 items-center justify-center rounded-full border-4 border-[#0a0a0f] bg-orange-500 text-white shadow-[0_0_0_1px_rgba(251,146,60,0.35)]" aria-hidden="true">
+        <Icon size={10} />
+      </span>
+      {children}
+    </div>
+  );
+}
+
 function SkillChip({ skill }) {
   return (
     <span className="group/skill inline-flex items-center gap-2 rounded-xl border border-[#2a2a3a] bg-[#0a0a0f]/75 px-3 py-2 text-xs font-medium text-slate-200 transition-all duration-300 hover:-translate-y-0.5 hover:border-orange-500/50 hover:bg-orange-500/[0.06] hover:text-orange-100">
@@ -161,8 +211,10 @@ function SkillChip({ skill }) {
 const skillCategoryDetails = {
   Languages: { description: "Core programming languages", icon: Code2 },
   "Frontend & Mobile": { description: "Building modern user interfaces", icon: Smartphone },
-  "Backend & Data": { description: "Services, APIs and data workflows", icon: Code2 },
-  "Cloud, Tools & Design": { description: "Development and design workflow", icon: Cpu },
+  "Backend & APIs": { description: "Services and API foundations", icon: Code2 },
+  "Databases & Cloud": { description: "Connected data and cloud services", icon: Cpu },
+  "Tools & IoT": { description: "Development, hardware, and design workflow", icon: Cpu },
+  "AI / Machine Learning": { description: "Current study and application exploration", icon: Sparkles },
 };
 
 function SkillCategory({ group }) {
@@ -196,11 +248,18 @@ function About() {
   const [showFullProfile, setShowFullProfile] = React.useState(false);
 
   // Scroll animation refs
+  const heroRef = useScrollAnimation({ threshold: '0.2' });
   const skillsRef = useScrollAnimation({ threshold: '0.2' });
   const servicesRef = useScrollAnimation({ threshold: '0.2' });
   const educationRef = useScrollAnimation({ threshold: '0.2' });
   const volunteersRef = useScrollAnimation({ threshold: '0.2' });
   const achievementsRef = useScrollAnimation({ threshold: '0.2' });
+  const certificatesRef = useScrollAnimation({ threshold: '0.2' });
+  const featuredProjectsRef = useScrollAnimation({ threshold: '0.2' });
+  const currentFocusRef = useScrollAnimation({ threshold: '0.2' });
+  const writingRef = useScrollAnimation({ threshold: '0.2' });
+  const careerRef = useScrollAnimation({ threshold: '0.2' });
+  const contactRef = useScrollAnimation({ threshold: '0.2' });
 
   // Lock background scroll while the Full Profile modal is open
   React.useEffect(() => {
@@ -211,66 +270,75 @@ function About() {
     }
   }, [showFullProfile]);
 
+  React.useEffect(() => {
+    const handleOverlayKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setActiveAchievement(null);
+        setActiveCertificate(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleOverlayKeyDown);
+    return () => window.removeEventListener("keydown", handleOverlayKeyDown);
+  }, []);
+
   return (
-    <div id="about" className="bg-[#0a0a0f] text-[#f1f5f9]">
+    <div id="about" className="flex flex-col bg-[#0a0a0f] text-[#f1f5f9]">
 
       {/* Hero */}
-      <section className="py-24 px-6 md:px-12 lg:px-24">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div className="flex justify-center">
-            <div className="relative w-72 h-72 md:w-80 md:h-80">
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-600 blur-2xl opacity-30" />
-              <img
-                src={profileImg1}
-                alt="Gayangi Devindi"
-                className="relative w-full h-full object-cover object-top rounded-2xl border border-[#2a2a3a]"
-              />
+      <section ref={heroRef} className="order-1 relative overflow-hidden px-6 pb-24 pt-16 md:px-12 md:pb-28 lg:px-24">
+        <div className="pointer-events-none absolute right-[-10rem] top-[-12rem] h-[28rem] w-[28rem] rounded-full bg-orange-500/[0.06] blur-3xl" />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[0.82fr_1.18fr] md:gap-16">
+          <div data-scroll-child className="flex justify-center md:justify-start">
+            <div className="relative w-64 sm:w-72 md:w-full md:max-w-sm">
+              <div className="absolute -inset-3 rounded-[2rem] border border-orange-500/20" />
+              <div className="absolute -bottom-5 -right-5 h-28 w-28 rounded-2xl border border-orange-500/20 bg-orange-500/[0.05]" />
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-[#2a2a3a] bg-[#16161f] p-2 shadow-[0_24px_70px_-35px_rgba(251,146,60,0.5)]">
+                <img src={profileImg1} alt="Gayangi Devindi" className="h-full w-full rounded-[1.35rem] object-cover object-top" />
+                <div className="absolute inset-x-5 bottom-5 flex items-center justify-between rounded-xl border border-white/10 bg-[#0a0a0f]/75 px-3 py-2.5 backdrop-blur-md">
+                  <span className="text-[10px] uppercase tracking-[0.18em] text-slate-400">Based in Sri Lanka</span>
+                  <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.7)]" aria-label="Available" />
+                </div>
+              </div>
             </div>
           </div>
-          <div>
+          <div data-scroll-child>
             <SectionLabel text="About Me" />
-            <h1 className="text-4xl md:text-5xl font-black text-white mb-2">Gayangi Devindi</h1>
-            <p className="text-orange-400 font-medium mb-3">Software Engineering Undergraduate | Full-Stack Developer</p>
-            <div className="flex items-center gap-2 text-slate-400 text-sm mb-6">
-              <MapPin size={14} />
+            <div className="mb-5 flex flex-wrap items-center gap-3">
+              <StatusBadge>Open to opportunities</StatusBadge>
+              <span className="text-xs uppercase tracking-[0.16em] text-slate-500">Software • IoT • Design</span>
+            </div>
+            <h1 className="max-w-3xl text-4xl font-black tracking-tight text-white sm:text-5xl md:text-6xl">Gayangi Devindi</h1>
+            <p className="mt-4 text-lg font-medium text-orange-300">Software Engineering Undergraduate | Full-Stack Developer</p>
+            <div className="mt-4 flex items-center gap-2 text-sm text-slate-400">
+              <MapPin size={15} className="text-orange-400" />
               <span>University of Moratuwa, Sri Lanka</span>
             </div>
-            <p className="text-slate-400 leading-relaxed mb-4">
-              I am a full-stack developer and IoT engineer studying Information Technology at the
-              University of Moratuwa. I am passionate about building innovative digital solutions
-              across web development, embedded systems, and mobile application development.
-            </p>
-            <p className="text-slate-400 leading-relaxed mb-6">
-              My journey in technology ranges from developing ESP32-based IoT prototypes to building
-              scalable web applications. I enjoy collaborative environments where creativity and
-              technical excellence come together to solve practical problems.
-            </p>
-            <div className="flex items-center gap-3 mb-8">
-              <a href="https://github.com/gayangidevindi" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="w-11 h-11 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all">
-                <ExternalLink size={19} />
-              </a>
-              <a href="https://www.linkedin.com/in/gayangi-devindi-0272a8290/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-11 h-11 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all">
-                <LinkedInIcon size={19} />
-              </a>
-              <a href="mailto:gyangidevindi@gmail.com" aria-label="Email" className="w-11 h-11 border border-[#2a2a3a] rounded-xl flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500 transition-all">
-                <Mail size={19} />
-              </a>
+            <div className="my-7 h-px max-w-xl bg-gradient-to-r from-orange-500/40 via-white/10 to-transparent" />
+            <div className="max-w-2xl space-y-4 text-slate-400 leading-relaxed">
+              <p>I am a full-stack developer and IoT engineer studying Information Technology at the University of Moratuwa. I am passionate about building innovative digital solutions across web development, embedded systems, and mobile application development.</p>
+              <p>My journey in technology ranges from developing ESP32-based IoT prototypes to building scalable web applications. I enjoy collaborative environments where creativity and technical excellence come together to solve practical problems.</p>
             </div>
-            <div className="flex flex-wrap gap-4">
+            <div className="mt-8 flex items-center gap-3">
+              <SocialButton href="https://github.com/gayangidevindi" label="GitHub"><ExternalLink size={19} /></SocialButton>
+              <SocialButton href="https://www.linkedin.com/in/gayangi-devindi-0272a8290/" label="LinkedIn"><LinkedInIcon size={19} /></SocialButton>
+              <SocialButton href="mailto:gyangidevindi@gmail.com" label="Email"><Mail size={19} /></SocialButton>
+            </div>
+            <div className="mt-8 flex flex-wrap gap-3">
               <button
                 type="button"
                 onClick={() => setShowFullProfile(true)}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold px-6 py-3 rounded-xl transition-all"
+                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 px-6 py-3 font-semibold text-white shadow-[0_14px_28px_-18px_rgba(251,146,60,0.9)] transition-all hover:-translate-y-0.5 hover:from-orange-500 hover:to-amber-500"
               >
                 Full Profile <ArrowRight size={16} />
               </button>
-              <a href="#contact" className="inline-flex items-center gap-2 border border-[#2a2a3a] hover:border-orange-500 text-slate-300 hover:text-white font-semibold px-6 py-3 rounded-xl transition-all">
+              <a href="#contact" className="inline-flex items-center gap-2 rounded-xl border border-[#2a2a3a] bg-[#111118]/70 px-6 py-3 font-semibold text-slate-300 transition-all hover:-translate-y-0.5 hover:border-orange-500/60 hover:text-white">
                 <Mail size={16} /> Contact
               </a>
               <a
                 href="/Gayangi_Devindi_CV.pdf"
                 download="Gayangi_Devindi_CV.pdf"
-                className="inline-flex items-center gap-2 border border-orange-500/50 hover:border-orange-500 hover:bg-orange-500/10 text-orange-400 hover:text-orange-300 font-semibold px-6 py-3 rounded-xl transition-all duration-200"
+                className="inline-flex items-center gap-2 rounded-xl border border-orange-500/40 px-6 py-3 font-semibold text-orange-300 transition-all duration-200 hover:-translate-y-0.5 hover:bg-orange-500/10 hover:text-orange-200"
               >
                 <Download size={16} /> Download CV
               </a>
@@ -280,242 +348,209 @@ function About() {
       </section>
 
       {/* What I Do */}
-      <section ref={servicesRef} id="experience" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
+      <section ref={servicesRef} id="experience" className="order-2 border-t border-[#2a2a3a] bg-[#0d0d13] px-6 py-20 md:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto">
-          <SectionLabel text="Services" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">What I Do</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((s) => (
-              <div key={s.title} className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 hover:border-orange-500/50 hover:-translate-y-1 transition-all duration-300">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white mb-4">
+          <SectionHeader eyebrow="Capabilities" title="What I Do" description="I work across the product surface, from interaction design and responsive interfaces to connected systems and the services behind them." />
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {services.map((s, index) => (
+              <article key={s.title} data-scroll-child className="group relative overflow-hidden rounded-2xl border border-[#2a2a3a] bg-[#16161f] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-orange-500/50">
+                <span className="absolute right-5 top-5 text-xs font-medium text-slate-600">0{index + 1}</span>
+                <div className="mb-6 flex h-11 w-11 items-center justify-center rounded-xl border border-orange-500/25 bg-orange-500/10 text-orange-300 transition-transform duration-300 group-hover:-translate-y-1">
                   {s.icon}
                 </div>
-                <h3 className="text-white font-semibold mb-2">{s.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{s.desc}</p>
-              </div>
+                <h3 className="mb-2 text-lg font-semibold text-white">{s.title}</h3>
+                <p className="text-sm leading-relaxed text-slate-400">{s.desc}</p>
+                <div className="mt-6 h-px w-10 bg-orange-500/50 transition-all duration-300 group-hover:w-20" />
+              </article>
             ))}
           </div>
         </div>
       </section>
 
       {/* Education */}
-      <section ref={educationRef} id="education" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a] scroll-mt-24">
+      <section ref={educationRef} id="education" className="order-3 scroll-mt-24 border-t border-[#2a2a3a] px-6 py-20 md:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto">
-          <SectionLabel text="Background" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Education</h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+          <SectionHeader eyebrow="Background" title="Education" description="An academic foundation in information technology, backed by focused work across software, hardware, and digital experiences." />
+          <div className="mb-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {[
               { value: "3.40", label: "Current CGPA" },
               { value: "1.7792", label: "Z-Score" },
               { value: "150", label: "District Rank" },
               { value: "9 A's", label: "O/L Results" },
             ].map((stat) => (
-              <div key={stat.label} className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 text-center hover:border-orange-500/50 transition-colors">
-                <p className="text-3xl font-black bg-gradient-to-br from-orange-400 to-amber-500 bg-clip-text text-transparent">{stat.value}</p>
-                <p className="text-slate-500 text-sm mt-2">{stat.label}</p>
+              <div key={stat.label} data-scroll-child className="rounded-2xl border border-[#2a2a3a] bg-[#111118] p-5 text-center transition-colors hover:border-orange-500/50">
+                <p className="text-2xl font-black text-orange-300 md:text-3xl">{stat.value}</p>
+                <p className="mt-2 text-xs text-slate-500">{stat.label}</p>
               </div>
             ))}
           </div>
 
-          <div className="relative pl-8 space-y-8 before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-px before:bg-[#2a2a3a]">
-            <div className="relative">
-              <div className="absolute -left-8 top-1 w-4 h-4 rounded-full bg-gradient-to-br from-orange-500 to-amber-600 ring-4 ring-[#0a0a0f]" />
-              <div className="bg-[#16161f] border border-[#2a2a3a] p-6 rounded-2xl hover:border-orange-500/50 transition-colors">
+          <div className="space-y-8">
+            <div data-scroll-child><TimelineItem icon={GraduationCap}>
+              <div className="rounded-2xl border border-orange-500/25 bg-[#16161f] p-6 shadow-[0_18px_45px_-35px_rgba(251,146,60,0.8)]">
                 <div className="flex items-start gap-3 mb-2">
-                  <GraduationCap className="text-orange-400 mt-1 flex-shrink-0" size={20} />
                   <div>
-                    <h3 className="font-semibold text-white">BSc in Information Technology</h3>
-                    <p className="text-orange-400 text-sm">University of Moratuwa</p>
+                    <div className="mb-2 flex flex-wrap items-center gap-3"><span className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-300">Ongoing</span><span className="text-xs text-slate-600">01</span></div>
+                    <h3 className="text-xl font-semibold text-white">BSc in Information Technology</h3>
+                    <p className="mt-1 text-orange-300">University of Moratuwa</p>
                   </div>
                 </div>
-                <p className="text-slate-400 text-sm mt-2">Ongoing education with a focus on full-stack development, IoT systems, and emerging technologies.</p>
+                <p className="mt-4 text-sm leading-relaxed text-slate-400">Ongoing education with a focus on full-stack development, IoT systems, and emerging technologies.</p>
+                <div className="mt-5 flex flex-wrap gap-2"><span className="rounded-full border border-[#2a2a3a] px-3 py-1.5 text-xs text-slate-300">Full-Stack Development</span><span className="rounded-full border border-[#2a2a3a] px-3 py-1.5 text-xs text-slate-300">IoT Systems</span><span className="rounded-full border border-[#2a2a3a] px-3 py-1.5 text-xs text-slate-300">Emerging Technologies</span></div>
               </div>
-            </div>
+            </TimelineItem></div>
 
-            <div className="relative">
-              <div className="absolute -left-8 top-1 w-4 h-4 rounded-full bg-gradient-to-br from-orange-500 to-amber-600 ring-4 ring-[#0a0a0f]" />
-              <div className="bg-[#16161f] border border-[#2a2a3a] p-6 rounded-2xl hover:border-orange-500/50 transition-colors">
+            <div data-scroll-child><TimelineItem icon={School}>
+              <div className="rounded-2xl border border-[#2a2a3a] bg-[#16161f] p-6 transition-colors hover:border-orange-500/40">
                 <div className="flex items-start gap-3 mb-4">
-                  <School className="text-orange-400 mt-1 flex-shrink-0" size={20} />
                   <div>
-                    <h3 className="font-semibold text-white">G.C.E. Advanced Level — Physical Science Stream</h3>
-                    <p className="text-orange-400 text-sm">Mahinda Rajapaksa College, Matara</p>
+                    <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">02 · Completed</p>
+                    <h3 className="text-lg font-semibold text-white">G.C.E. Advanced Level — Physical Science Stream</h3>
+                    <p className="mt-1 text-orange-300 text-sm">Mahinda Rajapaksa College, Matara</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
                   {alResults.map((result) => (
-                    <div key={result.subject} className="bg-[#0a0a0f] border border-[#2a2a3a] rounded-xl p-4 text-center">
-                      <p className={`text-2xl font-black mb-1 ${result.grade === "A" ? "text-orange-400" : "text-amber-500"}`}>{result.grade}</p>
-                      <p className="text-slate-500 text-xs">{result.subject}</p>
+                    <div key={result.subject} className="rounded-xl border border-[#2a2a3a] bg-[#0a0a0f] p-4 text-center">
+                      <p className="mb-1 text-2xl font-black text-orange-300">{result.grade}</p>
+                      <p className="text-xs text-slate-500">{result.subject}</p>
                     </div>
                   ))}
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-orange-500/10 border border-orange-500/30 rounded-full text-orange-400 text-xs font-semibold"><TrendingUp size={14} /> Z-Score: 1.7792</span>
-                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-orange-500/10 border border-orange-500/30 rounded-full text-orange-400 text-xs font-semibold"><Award size={14} /> District Rank: 150</span>
+                  <span className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1.5 text-xs font-semibold text-orange-300"><TrendingUp size={14} /> Z-Score: 1.7792</span>
+                  <span className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1.5 text-xs font-semibold text-orange-300"><Award size={14} /> District Rank: 150</span>
                 </div>
               </div>
-            </div>
+            </TimelineItem></div>
 
-            <div className="relative">
-              <div className="absolute -left-8 top-1 w-4 h-4 rounded-full bg-gradient-to-br from-orange-500 to-amber-600 ring-4 ring-[#0a0a0f]" />
-              <div className="bg-[#16161f] border border-[#2a2a3a] p-6 rounded-2xl hover:border-orange-500/50 transition-colors">
+            <div data-scroll-child><TimelineItem icon={School} last>
+              <div className="rounded-2xl border border-[#2a2a3a] bg-[#16161f] p-6 transition-colors hover:border-orange-500/40">
                 <div className="flex items-start gap-3">
-                  <School className="text-orange-400 mt-1 flex-shrink-0" size={20} />
                   <div>
-                    <h3 className="font-semibold text-white">G.C.E. Ordinary Level</h3>
-                    <p className="text-orange-400 text-sm">Mahinda Rajapaksa College, Matara</p>
-                    <span className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 bg-orange-500/10 border border-orange-500/30 rounded-full text-orange-400 text-xs font-semibold"><Award size={14} /> 9 A's</span>
+                    <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">03 · Completed</p>
+                    <h3 className="text-lg font-semibold text-white">G.C.E. Ordinary Level</h3>
+                    <p className="mt-1 text-orange-300 text-sm">Mahinda Rajapaksa College, Matara</p>
+                    <span className="mt-4 inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1.5 text-xs font-semibold text-orange-300"><Award size={14} /> 9 A's</span>
                   </div>
                 </div>
               </div>
+            </TimelineItem></div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Leadership & Engagement */}
+      <section ref={volunteersRef} id="leadership" className="order-6 border-t border-[#2a2a3a] px-6 py-20 md:px-12 lg:px-24">
+        <div className="max-w-6xl mx-auto">
+          <SectionHeader eyebrow="Community" title="Leadership & Engagement" description="Leadership, committee, and community involvement alongside technical project work." />
+          <div className="relative ml-2 border-l border-orange-500/25 pl-6 sm:ml-4 sm:pl-8">
+            <div className="grid gap-3 md:grid-cols-2">
+              {leadershipItems.map((item, index) => (
+                <article key={`${item.role}-${item.org}`} data-scroll-child className="group relative rounded-2xl border border-[#2a2a3a] bg-[#16161f] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-orange-500/50 hover:bg-[#191922]">
+                  <span className="absolute -left-[2rem] top-7 h-2.5 w-2.5 rounded-full border-2 border-[#0a0a0f] bg-orange-400 sm:-left-[2.4rem]" aria-hidden="true" />
+                  <div className="flex gap-4">
+                    <div className="mt-1 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-orange-500/25 bg-orange-500/10 text-orange-300">
+                      <Users size={16} />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-white">{item.role}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-slate-400">{item.org}</p>
+                    </div>
+                  </div>
+                </article>
+              ))}
             </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Gallery */}
-      <section ref={skillsRef} id="certifications" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
-        <div className="max-w-6xl mx-auto">
-          <SectionLabel text="Gallery" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Moments</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {galleryImages.map((img, i) => (
-              <div key={i} className="relative overflow-hidden rounded-2xl border border-[#2a2a3a] aspect-square group">
-                <img
-                  src={img}
-                  alt={`Moment ${i + 1}`}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Volunteering */}
-      <section ref={volunteersRef} className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
-        <div className="max-w-6xl mx-auto">
-          <SectionLabel text="Community" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Volunteering</h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            {volunteerItems.map((v, i) => (
-              <div key={i} className="flex gap-4 bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 hover:border-orange-500/50 transition-all">
-                <div className="mt-1 w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center flex-shrink-0">
-                  <Users size={16} className="text-white" />
-                </div>
-                <div>
-                  <p className="text-white font-semibold text-sm">{v.role}</p>
-                  <p className="text-slate-400 text-sm mt-1">{v.org}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Memberships */}
-      <section id="memberships" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a] scroll-mt-24">
-        <div className="max-w-6xl mx-auto">
-          <SectionLabel text="Community" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Memberships</h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            {memberships.map((item, idx) => (
-              <div key={idx} className="flex gap-4 bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 hover:border-orange-500/50 transition-all">
-                <div className="mt-1 w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center flex-shrink-0">
-                  <Award size={18} className="text-white" />
-                </div>
-                <div>
-                  <p className="text-white font-semibold text-sm">{item.role}</p>
-                  <p className="text-slate-400 text-sm mt-1">{item.org}</p>
-                  <p className="text-slate-500 text-xs mt-2">Term {item.term}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
 
       {/* Achievements */}
-      <section ref={achievementsRef} id="achievements" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a] scroll-mt-24">
+      <section ref={achievementsRef} id="achievements" className="order-7 scroll-mt-24 border-t border-[#2a2a3a] px-6 py-20 md:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto">
-          <SectionLabel text="Achievements" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Achievements</h2>
-          <div className="grid md:grid-cols-2 gap-6">
+          <SectionHeader eyebrow="Recognition" title="Achievements" description="Milestones and participation that reflect curiosity, craft, and involvement beyond the classroom." />
+          <div className="grid gap-5 md:grid-cols-2">
             {achievements.map((item, idx) => (
-              <div key={idx} className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl overflow-hidden hover:border-orange-500/50 transition-all">
+              <article key={idx} data-scroll-child className="group overflow-hidden rounded-2xl border border-[#2a2a3a] bg-[#16161f] transition-all duration-300 hover:border-orange-500/50">
                 <button type="button" onClick={() => setActiveAchievement(item)} className="w-full overflow-hidden">
-                  <img src={item.image} alt={item.title} className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105" />
+                  <img src={item.image} alt={item.title} className="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 </button>
                 <div className="p-6">
-                  <p className="text-white font-semibold mb-2">{item.title}</p>
-                  <p className="text-slate-400 text-sm mb-3">{item.organizer}</p>
-                  <p className="text-slate-500 text-xs">{item.date}</p>
+                  <div className="mb-3 flex items-center gap-2 text-orange-300"><Award size={15} /><span className="text-[10px] font-semibold uppercase tracking-[0.18em]">Achievement</span></div>
+                  <p className="font-semibold text-white">{item.title}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-400">{item.organizer}</p>
+                  <p className="mt-3 text-xs text-slate-500">{item.date}</p>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
       {/* Certificates */}
-      <section id="certificates" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a] scroll-mt-24">
+      <section ref={certificatesRef} id="certificates" className="order-8 scroll-mt-24 border-t border-[#2a2a3a] bg-[#0d0d13] px-6 py-20 md:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto">
-          <SectionLabel text="Learning" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">Certificates</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <SectionHeader eyebrow="Learning" title="Certificates" description="A growing record of focused learning across software engineering, cloud, AI, and application development." />
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {certificates.map((item) => (
-              <div key={item.title} className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl overflow-hidden hover:border-orange-500/50 transition-all">
-                <button type="button" onClick={() => setActiveCertificate(item)} className="w-full overflow-hidden">
-                  <img src={item.image} alt={item.title} className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105" />
+              <article key={item.title} data-scroll-child className="group overflow-hidden rounded-2xl border border-[#2a2a3a] bg-[#16161f] transition-all duration-300 hover:border-orange-500/50">
+                <button type="button" onClick={() => setActiveCertificate(item)} className="block w-full overflow-hidden">
+                  <img src={item.image} alt={item.title} className="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 </button>
                 <div className="p-6">
-                  <p className="text-white font-semibold mb-2">{item.title}</p>
-                  <p className="text-slate-400 text-sm mb-3">{item.organizer}</p>
-                  <p className="text-slate-500 text-xs">{item.date}</p>
+                  <div className="mb-3 flex items-center gap-2 text-orange-300"><GraduationCap size={15} /><span className="text-[10px] font-semibold uppercase tracking-[0.18em]">Certification</span></div>
+                  <p className="font-semibold text-white">{item.title}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-400">{item.organizer}</p>
+                  <p className="mt-3 text-xs text-slate-500">{item.date}</p>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
       {/* Featured Projects */}
-      <section className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
+      <section ref={featuredProjectsRef} className="order-5 border-t border-[#2a2a3a] px-6 py-20 md:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto">
-          <SectionLabel text="Work" />
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">Featured Projects</h2>
-            <a href="#projects" className="inline-flex items-center gap-2 text-orange-400 hover:text-orange-300 font-medium text-sm transition-colors">
+          <div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+            <SectionHeader eyebrow="Selected Work" title="Featured Projects" description="A few projects where product thinking, engineering, and experimentation meet." />
+            <a href="#projects" className="mb-1 inline-flex items-center gap-2 text-sm font-medium text-orange-300 transition-colors hover:text-orange-200">
               See All Projects <ArrowRight size={16} />
             </a>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {featuredProjects.map((p) => (
-              <div key={p.title} className="bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6 hover:border-orange-500/50 hover:-translate-y-1 transition-all duration-300">
-                <h3 className="text-white font-semibold text-lg mb-2">{p.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed mb-4">{p.desc}</p>
+          <div className="grid gap-5 md:grid-cols-3">
+            {featuredProjects.map((p, index) => {
+              const ProjectIcon = p.icon;
+              return (
+              <article key={p.title} data-scroll-child className="group relative overflow-hidden rounded-2xl border border-[#2a2a3a] bg-[#16161f] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-orange-500/50">
+                <div className="mb-8 flex items-center justify-between">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-orange-500/25 bg-orange-500/10 text-orange-300 transition-transform duration-300 group-hover:-translate-y-1"><ProjectIcon size={19} /></div>
+                  <span className="text-xs font-medium text-slate-600">0{index + 1}</span>
+                </div>
+                <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-orange-300">{p.category}</p>
+                <h3 className="mb-3 text-xl font-semibold text-white">{p.title}</h3>
+                <p className="mb-6 min-h-[4.5rem] text-sm leading-relaxed text-slate-400">{p.desc}</p>
                 <div className="flex flex-wrap gap-2">
                   {p.stack.map((tag) => (
-                    <span key={tag} className="text-xs px-3 py-1 rounded-full bg-[#0a0a0f] border border-[#2a2a3a] text-orange-400">
+                    <span key={tag} className="rounded-full border border-[#2a2a3a] bg-[#0a0a0f] px-3 py-1.5 text-xs text-slate-300">
                       {tag}
                     </span>
                   ))}
                 </div>
-              </div>
-            ))}
+                <a href="#projects" className="mt-7 inline-flex items-center gap-2 text-xs font-semibold text-orange-300 transition-colors hover:text-white">Explore project <ArrowRight size={14} /></a>
+              </article>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Skills */}
-      <section ref={skillsRef} id="skills" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
+      <section ref={skillsRef} id="skills" className="order-4 py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
         <div className="max-w-6xl mx-auto">
           <SectionLabel text="Skills" />
-          <div className="mb-10 max-w-3xl">
+          <div data-scroll-child className="mb-10 max-w-3xl">
             <h2 className="text-3xl md:text-4xl font-bold text-white">Technical Skills</h2>
             <p className="mt-4 text-slate-400 leading-relaxed">
               Technologies and tools I use to build modern, scalable applications.
@@ -523,17 +558,39 @@ function About() {
           </div>
 
           <div className="grid gap-5 md:grid-cols-2">
-            {skillGroups.map((group) => <SkillCategory key={group.title} group={group} />)}
+            {skillShowcaseGroups.map((group) => <div key={group.title} data-scroll-child><SkillCategory group={group} /></div>)}
+          </div>
+        </div>
+      </section>
+
+      {/* Current Focus */}
+      <section ref={currentFocusRef} className="order-9 border-t border-[#2a2a3a] bg-[#0d0d13] px-6 py-20 md:px-12 lg:px-24">
+        <div className="max-w-6xl mx-auto">
+          <SectionHeader eyebrow="Current Focus" title="What I'm Exploring" description="Currently expanding my knowledge in AI/ML and modern software engineering practices." />
+          <div className="grid gap-4 md:grid-cols-3">
+            {currentFocusItems.map((item, index) => (
+              <article key={item.title} data-scroll-child className="group rounded-2xl border border-[#2a2a3a] bg-[#16161f] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-orange-500/50">
+                <div className="mb-6 flex items-center justify-between">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-orange-500/25 bg-orange-500/10 text-orange-300"><Sparkles size={18} /></div>
+                  <span className="text-xs text-slate-600">0{index + 1}</span>
+                </div>
+                <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-400">{item.description}</p>
+              </article>
+            ))}
+          </div>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {currentlyLearning.map((technology) => (
+              <span key={technology} className="rounded-full border border-orange-500/25 bg-orange-500/[0.06] px-3 py-1.5 text-xs font-medium text-orange-200">{technology}</span>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Technical Writing */}
-      <section id="writing" className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
+      <section ref={writingRef} id="writing" className="order-11 border-t border-[#2a2a3a] bg-[#0d0d13] px-6 py-20 md:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto">
-          <SectionLabel text="Technical Writing" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Notes from the Build</h2>
-          <p className="text-slate-400 max-w-2xl mb-8">I share practical notes and lessons from software development, cloud computing, AI, and projects.</p>
+          <SectionHeader eyebrow="Knowledge Sharing" title="Notes from the Build" description="I share practical notes and lessons from software development, cloud computing, AI, and projects." />
           {mediumArticles.length > 0 ? (
             <div className="grid md:grid-cols-2 gap-4">
               {mediumArticles.map((article) => (
@@ -545,12 +602,16 @@ function About() {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 bg-[#16161f] border border-[#2a2a3a] rounded-2xl p-6">
-              <div>
-                <h3 className="text-white font-semibold mb-2">Follow my technical writing on Medium</h3>
-                <p className="text-slate-500 text-sm">Articles will appear here as they are published.</p>
+            <div data-scroll-child className="relative flex flex-col gap-8 overflow-hidden rounded-2xl border border-[#2a2a3a] bg-[#16161f] p-7 md:flex-row md:items-center md:justify-between md:p-9">
+              <div className="relative flex items-start gap-5">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border border-orange-500/25 bg-orange-500/10 text-orange-300"><span className="text-xl font-black">M</span></div>
+                <div>
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-orange-300">Writing & Knowledge Sharing</p>
+                  <h3 className="text-lg font-semibold text-white">Follow my technical writing on Medium</h3>
+                  <p className="mt-2 text-sm text-slate-500">Articles will appear here as they are published.</p>
+                </div>
               </div>
-              <a href={MEDIUM_PROFILE_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 bg-orange-600 hover:bg-orange-500 text-white font-semibold px-5 py-3 rounded-xl transition-colors">Read on Medium <ExternalLink size={16} /></a>
+              <a href={MEDIUM_PROFILE_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 self-start rounded-xl bg-orange-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-orange-500 md:self-auto">Read on Medium <ExternalLink size={16} /></a>
             </div>
           )}
         </div>
@@ -558,40 +619,43 @@ function About() {
 
       {/* Achievement Lightbox Overlay */}
       {activeAchievement && (
-        <div className="fixed inset-0 z-50 bg-[#0a0a0f]/95 flex items-center justify-center p-6" onClick={() => setActiveAchievement(null)}>
-          <div className="relative max-w-4xl w-full bg-[#16161f] border border-[#2a2a3a] rounded-3xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0a0a0f]/95 p-4 backdrop-blur-md sm:p-6" role="dialog" aria-modal="true" aria-label="Achievement preview" onClick={() => setActiveAchievement(null)}>
+          <div className="relative max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-3xl border border-[#2a2a3a] bg-[#16161f] shadow-[0_24px_80px_-30px_rgba(0,0,0,0.9)]" onClick={(e) => e.stopPropagation()}>
             <button
               type="button"
               onClick={() => setActiveAchievement(null)}
-              className="absolute top-4 right-4 z-20 inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#0a0a0f] border border-[#2a2a3a] text-slate-300 hover:text-white hover:border-orange-500/50 transition-all"
+              aria-label="Close achievement preview"
+              className="absolute right-4 top-4 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#2a2a3a] bg-[#0a0a0f]/90 text-slate-300 transition-all hover:border-orange-500/50 hover:text-white"
             >
-              ✕
+              <X size={18} />
             </button>
             <img
               src={activeAchievement.image}
               alt={activeAchievement.title}
-              className="w-full max-h-[80vh] object-contain bg-[#0a0a0f]"
+              className="max-h-[72vh] w-full bg-[#0a0a0f] object-contain"
             />
-            <div className="p-6">
-              <h3 className="text-xl font-semibold text-white mb-3">{activeAchievement.title}</h3>
-              <p className="text-slate-400 mb-1">{activeAchievement.organizer}</p>
-              <p className="text-slate-500 text-sm">{activeAchievement.date}</p>
+            <div className="border-t border-[#2a2a3a] p-6">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-orange-300">Achievement</p>
+              <h3 className="mb-3 text-xl font-semibold text-white">{activeAchievement.title}</h3>
+              <p className="mb-1 text-slate-400">{activeAchievement.organizer}</p>
+              <p className="text-sm text-slate-500">{activeAchievement.date}</p>
             </div>
           </div>
         </div>
       )}
 
       {activeCertificate && (
-        <div className="fixed inset-0 z-50 bg-[#0a0a0f]/95 flex items-center justify-center p-6" onClick={() => setActiveCertificate(null)}>
-          <div className="relative max-w-4xl w-full bg-[#16161f] border border-[#2a2a3a] rounded-3xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
-            <button type="button" onClick={() => setActiveCertificate(null)} aria-label="Close certificate" className="absolute top-4 right-4 z-20 inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#0a0a0f] border border-[#2a2a3a] text-slate-300 hover:text-white hover:border-orange-500/50 transition-all">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0a0a0f]/95 p-4 backdrop-blur-md sm:p-6" role="dialog" aria-modal="true" aria-label="Certificate preview" onClick={() => setActiveCertificate(null)}>
+          <div className="relative max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-3xl border border-[#2a2a3a] bg-[#16161f] shadow-[0_24px_80px_-30px_rgba(0,0,0,0.9)]" onClick={(e) => e.stopPropagation()}>
+            <button type="button" onClick={() => setActiveCertificate(null)} aria-label="Close certificate preview" className="absolute right-4 top-4 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#2a2a3a] bg-[#0a0a0f]/90 text-slate-300 transition-all hover:border-orange-500/50 hover:text-white">
               <X size={18} />
             </button>
-            <img src={activeCertificate.image} alt={activeCertificate.title} className="w-full max-h-[80vh] object-contain bg-[#0a0a0f]" />
-            <div className="p-6">
-              <h3 className="text-xl font-semibold text-white mb-3">{activeCertificate.title}</h3>
-              <p className="text-slate-400 mb-1">{activeCertificate.organizer}</p>
-              <p className="text-slate-500 text-sm">{activeCertificate.date}</p>
+            <img src={activeCertificate.image} alt={activeCertificate.title} className="max-h-[72vh] w-full bg-[#0a0a0f] object-contain" />
+            <div className="border-t border-[#2a2a3a] p-6">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-orange-300">Certification</p>
+              <h3 className="mb-3 text-xl font-semibold text-white">{activeCertificate.title}</h3>
+              <p className="mb-1 text-slate-400">{activeCertificate.organizer}</p>
+              <p className="text-sm text-slate-500">{activeCertificate.date}</p>
             </div>
           </div>
         </div>
@@ -600,24 +664,27 @@ function About() {
       {/* Full Profile Modal Card */}
       {showFullProfile && (
         <div
-          className="fixed inset-0 z-50 bg-[#0a0a0f]/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-8"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#0a0a0f]/90 p-4 backdrop-blur-md md:p-8"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="full-profile-title"
           onClick={() => setShowFullProfile(false)}
         >
           <div
-            className="relative max-w-3xl w-full max-h-[88vh] overflow-y-auto bg-[#16161f] border border-[#2a2a3a] rounded-3xl"
+            className="relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl border border-[#2a2a3a] bg-[#16161f] shadow-[0_24px_80px_-30px_rgba(0,0,0,0.9)]"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               type="button"
               onClick={() => setShowFullProfile(false)}
               aria-label="Close full profile"
-              className="absolute top-5 right-5 z-20 inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#0a0a0f] border border-[#2a2a3a] text-slate-300 hover:text-white hover:border-orange-500/50 transition-all"
+              className="absolute right-5 top-5 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#2a2a3a] bg-[#0a0a0f]/90 text-slate-300 transition-all hover:border-orange-500/50 hover:text-white"
             >
               <X size={18} />
             </button>
 
             {/* Header */}
-            <div className="relative p-8 md:p-10 border-b border-[#2a2a3a] bg-gradient-to-br from-orange-600/10 to-amber-600/10">
+            <div className="relative border-b border-[#2a2a3a] bg-gradient-to-br from-orange-600/10 to-amber-600/10 p-7 md:p-10">
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
                 <img
                   src={profileImg1}
@@ -626,7 +693,7 @@ function About() {
                 />
                 <div>
                   <p className="text-orange-400 text-xs tracking-widest uppercase mb-1">Full Profile</p>
-                  <h2 className="text-2xl md:text-3xl font-bold text-white">Gayangi Devindi</h2>
+                  <h2 id="full-profile-title" className="text-2xl font-bold text-white md:text-3xl">Gayangi Devindi</h2>
                   <p className="text-slate-400 text-sm mt-1">Software Engineering Undergraduate · Full-Stack & IoT Developer</p>
                   <div className="flex items-center gap-2 text-slate-500 text-xs mt-2">
                     <MapPin size={12} />
@@ -636,7 +703,7 @@ function About() {
               </div>
             </div>
 
-            <div className="p-8 md:p-10 space-y-10">
+            <div className="space-y-10 p-7 md:p-10">
 
               {/* Professional Summary */}
               <div>
@@ -745,26 +812,27 @@ function About() {
       )}
 
       {/* Career Objective & Availability */}
-      <section className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
+      <section ref={careerRef} className="order-10 border-t border-[#2a2a3a] px-6 py-20 md:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto">
-          <div className="relative bg-[#16161f] border border-[#2a2a3a] rounded-3xl p-8 md:p-12 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-600/5 to-amber-600/5 pointer-events-none" />
-            <div className="relative grid md:grid-cols-3 gap-10 items-start">
+          <SectionHeader eyebrow="Next Chapter" title="Career Objective" description="Building useful products, contributing to thoughtful teams, and growing through real engineering challenges." />
+          <div data-scroll-child className="relative overflow-hidden rounded-3xl border border-[#2a2a3a] bg-[#16161f] p-7 md:p-10">
+            <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 rounded-full bg-orange-500/[0.05] blur-3xl" />
+            <div className="relative grid gap-10 md:grid-cols-3 md:items-start">
               <div className="md:col-span-2">
-                <div className="flex items-center gap-2 mb-4">
+                <div className="mb-4 flex items-center gap-2">
                   <Target size={18} className="text-orange-400" />
-                  <p className="text-orange-400 text-xs tracking-widest uppercase">Career Objective</p>
+                  <p className="text-xs uppercase tracking-[0.2em] text-orange-300">Career Focus</p>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-snug">
+                <h3 className="mb-4 text-2xl font-bold leading-snug text-white md:text-3xl">
                   Looking to grow as a full-stack engineer who builds real, working products.
-                </h2>
-                <p className="text-slate-400 leading-relaxed">
+                </h3>
+                <p className="leading-relaxed text-slate-400">
                   I am seeking internship and entry-level opportunities where I can apply my full-stack
                   and IoT skills to solve practical problems, contribute to a team, and continue learning
                   from experienced engineers. I am open to remote, hybrid, or on-site roles.
                 </p>
-                <div className="mt-8">
-                  <div className="flex items-center gap-2 mb-3">
+                <div className="mt-8 border-t border-[#2a2a3a] pt-6">
+                  <div className="mb-3 flex items-center gap-2">
                     <Sparkles size={16} className="text-orange-400" />
                     <p className="text-slate-300 text-sm font-semibold">Currently Learning</p>
                   </div>
@@ -778,24 +846,20 @@ function About() {
                 </div>
               </div>
 
-              <div className="bg-[#0a0a0f] border border-[#2a2a3a] rounded-2xl p-6">
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="relative flex h-2.5 w-2.5">
-                    <Circle className="absolute inline-flex h-full w-full text-green-500 fill-green-500 animate-ping opacity-75" size={10} />
-                    <Circle className="relative inline-flex h-2.5 w-2.5 text-green-500 fill-green-500" size={10} />
-                  </span>
-                  <span className="text-green-400 text-sm font-semibold">Open to Opportunities</span>
+              <div className="rounded-2xl border border-emerald-500/20 bg-[#0a0a0f] p-6">
+                <div className="mb-5 flex items-center gap-2">
+                  <StatusBadge>Open to Opportunities</StatusBadge>
                 </div>
                 <div className="space-y-4">
-                  <div><p className="text-slate-500 text-xs uppercase tracking-wider mb-1">Looking for</p><p className="text-white text-sm font-medium">Internships & Entry-Level Roles</p></div>
-                  <div className="border-t border-[#2a2a3a] pt-4"><p className="text-slate-500 text-xs uppercase tracking-wider mb-1">Work Mode</p><p className="text-white text-sm font-medium">Remote / Hybrid / On-site</p></div>
-                  <div className="border-t border-[#2a2a3a] pt-4"><p className="text-slate-500 text-xs uppercase tracking-wider mb-1">Focus Areas</p><p className="text-white text-sm font-medium">Full-Stack Web & IoT</p></div>
+                  <div><p className="mb-1 text-xs uppercase tracking-wider text-slate-500">Looking for</p><p className="text-sm font-medium text-white">Internships & Entry-Level Roles</p></div>
+                  <div className="border-t border-[#2a2a3a] pt-4"><p className="mb-1 text-xs uppercase tracking-wider text-slate-500">Work Mode</p><p className="text-sm font-medium text-white">Remote / Hybrid / On-site</p></div>
+                  <div className="border-t border-[#2a2a3a] pt-4"><p className="mb-1 text-xs uppercase tracking-wider text-slate-500">Focus Areas</p><p className="text-sm font-medium text-white">Full-Stack Web & IoT</p></div>
                 </div>
                 <a
                   href="https://mail.google.com/mail/?view=cm&fs=1&to=gayangidevindi@gmail.com&su=Let%27s%20work%20together"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold px-5 py-3 rounded-xl transition-all text-sm"
+                  className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:from-orange-500 hover:to-amber-500"
                 >
                   <Mail size={16} /> Let's Talk
                 </a>
@@ -806,22 +870,23 @@ function About() {
       </section>
 
       {/* Contact CTA */}
-      <section className="py-20 px-6 md:px-12 lg:px-24 border-t border-[#2a2a3a]">
+      <section ref={contactRef} className="order-12 border-t border-[#2a2a3a] px-6 py-20 md:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto">
-          <div className="relative bg-[#16161f] border border-[#2a2a3a] rounded-3xl p-12 text-center overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-600/10 to-amber-600/10 pointer-events-none" />
-            <p className="text-orange-400 text-xs tracking-widest uppercase mb-4">Get In Touch</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Let's Connect</h2>
-            <p className="text-slate-400 mb-8 max-w-md mx-auto">
+          <div data-scroll-child className="relative overflow-hidden rounded-3xl border border-orange-500/25 bg-gradient-to-br from-orange-500/[0.08] via-[#16161f] to-[#16161f] p-8 text-center md:p-14">
+            <div className="relative mx-auto max-w-2xl">
+              <p className="mb-4 text-xs uppercase tracking-[0.22em] text-orange-300">Get In Touch</p>
+              <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl">Let's Connect</h2>
+              <p className="mx-auto mb-8 max-w-md leading-relaxed text-slate-400">
               Interested in working together or just want to say hello? My inbox is always open.
-            </p>
-            <div className="flex justify-center gap-4 flex-wrap">
-              <a href="#contact" className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold px-8 py-3 rounded-xl transition-all">
+              </p>
+              <div className="flex flex-wrap justify-center gap-3">
+              <a href="#contact" className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 px-8 py-3 font-semibold text-white transition-all hover:-translate-y-0.5 hover:from-orange-500 hover:to-amber-500">
                 <Mail size={16} /> Contact Me
               </a>
-              <a href="https://github.com/gayangidevindi" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border border-[#2a2a3a] hover:border-orange-500 text-slate-300 hover:text-white font-semibold px-8 py-3 rounded-xl transition-all">
+              <a href="https://github.com/gayangidevindi" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-[#2a2a3a] bg-[#0a0a0f]/40 px-8 py-3 font-semibold text-slate-300 transition-all hover:-translate-y-0.5 hover:border-orange-500/60 hover:text-white">
                 <ExternalLink size={16} /> GitHub
               </a>
+              </div>
             </div>
           </div>
         </div>
